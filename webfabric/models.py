@@ -6,16 +6,16 @@ class Configuration(models.Model):
 	value = models.CharField(max_length=255)
 	fabfile = models.TextField()
 
-    def __unicode__(self):
-        return u'%s' % (self.name)
+	def __unicode__(self):
+		return u'%s' % (self.name)
 
 
 class Template(models.Model):
 	name = models.CharField(max_length=100)
 	configuration = models.ForeignKey(Configuration)
 
-    def __unicode__(self):
-        return u'%s' % (self.name)
+	def __unicode__(self):
+		return u'%s' % (self.name)
 
 class Project(models.Model):
 	name = models.CharField(max_length=100)
@@ -24,13 +24,13 @@ class Project(models.Model):
 	template = models.ForeignKey(Template)
 	
 #	environment = models.ManyToManyField(Environment)
-    def __unicode__(self):
-        return u'%s' % (self.name)
+	def __unicode__(self):
+		return u'%s' % (self.name)
 
 class Environment(models.Model):
 	name = models.CharField(max_length=100)
 	hosts = models.CharField(max_length=500)
 	project = models.ForeignKey(Project)
 
-    def __unicode__(self):
-        return u'%s' % (self.name)
+	def __unicode__(self):
+		return u'%s' % (self.name)
