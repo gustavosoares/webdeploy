@@ -7,7 +7,7 @@ class Template(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.name)
         
-class Configuration(models.Model):
+class Template_Configuration(models.Model):
 	name = models.CharField(max_length=255)
 	value = models.CharField(max_length=255)
 	template = models.ForeignKey(Template)
@@ -21,11 +21,19 @@ class Project(models.Model):
 	description = models.CharField(max_length=200)
 	creation_dt = models.DateTimeField()
 	template = models.ForeignKey(Template)
-	
-#	environment = models.ManyToManyField(Environment)
+
 	def __unicode__(self):
 		return u'%s' % (self.name)
 
+class Project_Configuration(models.Model):
+	name = models.CharField(max_length=255)
+	value = models.CharField(max_length=255)
+	creation_dt = models.DateTimeField()
+	project = models.ForeignKey(Project)
+
+	def __unicode__(self):
+		return u'%s' % (self.name)
+		
 class Environment(models.Model):
 	name = models.CharField(max_length=100)
 	hosts = models.CharField(max_length=500)
@@ -33,3 +41,4 @@ class Environment(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
+

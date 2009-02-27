@@ -3,15 +3,33 @@
     "model": "webfabric.template",
     "pk": 1,
     "fields": {
-      "name": "vignette"
+      "name": "django"
     }
   },
   {
-    "model": "webfabric.configuration",
+    "model": "webfabric.template_configuration",
     "pk": 1,
     "fields": {
-      "name": "checkout_cmd",
-      "value": "/opt/bin/cvs",
+      "name": "config.fab_user",
+      "value": "usuario",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.configuration",
+    "pk": 2,
+    "fields": {
+      "name": "config.application",
+      "value": "nome do projeto",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.configuration",
+    "pk": 3,
+    "fields": {
+      "name": "config.tag",
+      "value": "tag",
       "template": 1
     }
   }
