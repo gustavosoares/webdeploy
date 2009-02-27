@@ -1,0 +1,19 @@
+[
+  {
+    "model": "webfabric.template",
+    "pk": 1,
+    "fields": {
+      "name": "vignette"
+    }
+  },
+  {
+    "model": "webfabric.configuration",
+    "pk": 1,
+    "fields": {
+      "name": "checkout_cmd",
+      "value": "/opt/bin/cvs",
+      "template": 1
+    }
+  }
+]
+

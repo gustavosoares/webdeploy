@@ -1,18 +1,17 @@
 from django.db import models
 
 # Create your models here.
+class Template(models.Model):
+	name = models.CharField(max_length=100)
+	
+	def __unicode__(self):
+		return u'%s' % (self.name)
+        
 class Configuration(models.Model):
 	name = models.CharField(max_length=255)
 	value = models.CharField(max_length=255)
-	fabfile = models.TextField()
-
-	def __unicode__(self):
-		return u'%s' % (self.name)
-
-
-class Template(models.Model):
-	name = models.CharField(max_length=100)
-	configuration = models.ForeignKey(Configuration)
+	template = models.ForeignKey(Template)
+	#fabfile = models.TextField()
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
