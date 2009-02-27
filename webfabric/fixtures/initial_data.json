@@ -11,7 +11,7 @@
     "pk": 1,
     "fields": {
       "name": "config.fab_user",
-      "value": "usuario",
+      "value": "[USUARIO]",
       "template": 1
     }
   },
@@ -20,7 +20,7 @@
     "pk": 2,
     "fields": {
       "name": "config.application",
-      "value": "nome do projeto",
+      "value": "[nome do projeto]",
       "template": 1
     }
   },
@@ -30,6 +30,60 @@
     "fields": {
       "name": "config.tag",
       "value": "tag",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 4,
+    "fields": {
+      "name": "config.clone",
+      "value": "clone_name",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 5,
+    "fields": {
+      "name": "config.checkout_dir",
+      "value": "/tmp/",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 6,
+    "fields": {
+      "name": "config.repository",
+      "value": "git://git.globoi.com/[APPLICATION]/[CLONE_NAME].git",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 7,
+    "fields": {
+      "name": "config.deploy_to",
+      "value": "/usr/local/glbdjango",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 8,
+    "fields": {
+      "name": "config.appdjango",
+      "value": "[aplicacao django]",
+      "template": 1
+    }
+  },
+    {
+    "model": "webfabric.template_configuration",
+    "pk": 9,
+    "fields": {
+      "name": "config.releases_days_to_keep",
+      "value": "4",
       "template": 1
     }
   }
