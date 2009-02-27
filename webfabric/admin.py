@@ -2,19 +2,23 @@ from django.contrib import admin
 from models import *
 
 
-class ConfigurationAdmin(admin.ModelAdmin):
-	pass
-
 class TemplateAdmin(admin.ModelAdmin):
 	pass
 
+class Template_ConfigurationAdmin(admin.ModelAdmin):
+	pass
+	
 class EnvironmentAdmin(admin.ModelAdmin):
 	pass
 
 class ProjectAdmin(admin.ModelAdmin):
 	pass
 
-admin.site.register(Configuration, ConfigurationAdmin)
+class Project_ConfigurationAdmin(admin.ModelAdmin):
+	pass
+
 admin.site.register(Template, TemplateAdmin)
+admin.site.register(Template_Configuration, Template_ConfigurationAdmin)
 admin.site.register(Environment, EnvironmentAdmin)
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(Project_Configuration, Project_ConfigurationAdmin)

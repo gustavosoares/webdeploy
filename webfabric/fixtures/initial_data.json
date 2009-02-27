@@ -16,7 +16,7 @@
     }
   },
     {
-    "model": "webfabric.configuration",
+    "model": "webfabric.template_configuration",
     "pk": 2,
     "fields": {
       "name": "config.application",
@@ -25,7 +25,7 @@
     }
   },
     {
-    "model": "webfabric.configuration",
+    "model": "webfabric.template_configuration",
     "pk": 3,
     "fields": {
       "name": "config.tag",
