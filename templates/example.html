@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="description" content="Peritor Webistrano - Capristrano Deployment the easy way" />
+  <meta name="keywords" content="rubyonrails ruby rails capistrano deployment" />
+  <title>Peritor Webistrano - Project teste - Stage dev</title>
+  <link rel="shortcut icon" href="/favicon.ico"></link>
+  <!--script src="/javascripts/prototype.js?1199723305" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1213390512" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1213390512" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1213390512" type="text/javascript"></script>
+<script src="/javascripts/application.js?1190892233" type="text/javascript"></script-->
+    <script src="media/js/prototype.js" type="text/javascript"></script>
+    <script src="media/js/scriptaculous.js" type="text/javascript"></script>
+  <link href="media/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+  
+ <script type="text/javascript">
+ 
+   function show_effective_config(){
+     $('h_e_c').show();
+     $('s_e_c').hide();
+     $('effective_config').show();
+   }
+   
+   function hide_effective_config(){
+      $('h_e_c').hide();
+      $('s_e_c').show();
+      $('effective_config').hide();
+    }
+ </script>
+
+</head>
+
+<body>
+  <div id="app_top">
+    <div id="header">
+      <div id="header_claim">Capistrano deployment the easy way</div>
+      <a href="/"><img alt="Webistrano_logo" border="0" src="/images/peritor_theme/webistrano_logo.gif?1190892233" /></a>
+    </div>
+    <div id="main_content">
+      
+        <div class="menu">
+          
+<div class="menu_box">
+  <div class="menu_box_header">
+	  <div class="menu_box_arrow"><img alt="Menu_arrow_down" id="projects_arrow_down" onclick="close_menu_box('projects'); return false" src="/images/peritor_theme/menu_arrow_down.gif?1190892233" style=";" /><img alt="Menu_arrow_right" id="projects_arrow_right" onclick="open_menu_box('projects'); return false" src="/images/peritor_theme/menu_arrow_right.gif?1190892233" style="display:none;;" /></div>
+<div class="menu_title"><a href="/projects">Projects</a></div>
+  </div>
+  <div class="menu_box_body">
+    <div id="projects_open_content" style="">
+  
+    
+      <a href="/projects/1" class="menu_link " title="teste">
+		    <div class="menu_icons">
+		  
+		  <img alt="Arrow_menu_right" border="0" height="20" id="project_1_arrow_right" onclick="open_menu('project_1'); return false;" src="/images/peritor_theme/arrow_menu_right.gif?1190892233" style="display:none;" width="20" />
+		  
+		  <img alt="Arrow_menu_down" border="0" height="20" id="project_1_arrow_down" onclick="close_menu('project_1'); return false;" src="/images/peritor_theme/arrow_menu_down.gif?1190892233" style="" width="20" /></div>
+		    <div class="menu_link_title has_submenu">
+		      teste
+		    </div>
+      </a>
+      <div id="project_1_stages" style="">
+	    
+        
+          <a href="/projects/1/stages/1" class="menu_link active_menu_link" title="dev">
+	          <div class="menu_link_title" style="padding-left: 30px; *padding-left: 33px">dev</div>
+			    </a>
+        
+		
+      </div>
+    
+  
+</div>
+<div id="projects_closed_content" style="display:none;">
+  <a href="javascript:open_menu_box('projects')" class="menu_link  menu_link_create">
+	  <div class="menu_link_title">
+	    1 project
+	  </div>
+  </a>
+</div>
+
+    <div class="clear"></div>
+  </div>
+  <div class="menu_box_footer"></div>
+</div>
+
+<div class="menu_box">
+  <div class="menu_box_header">
+	  <div class="menu_box_arrow"><img alt="Menu_arrow_down" id="hosts_arrow_down" onclick="close_menu_box('hosts'); return false" src="/images/peritor_theme/menu_arrow_down.gif?1190892233" style=";" /><img alt="Menu_arrow_right" id="hosts_arrow_right" onclick="open_menu_box('hosts'); return false" src="/images/peritor_theme/menu_arrow_right.gif?1190892233" style="display:none;;" /></div>
+<div class="menu_title"><a href="/hosts">Hosts</a></div>
+  </div>
+  <div class="menu_box_body">
+    <div id="hosts_open_content" style="">
+  
+    <div class="menu_item">No host created yet</div>
+    <a href="/hosts/new" class="menu_link  menu_link_create">
+	    <div class="menu_link_title">
+	      New host
+	    </div>
+	  </a>
+  
+</div>
+<div id="hosts_closed_content" style="display:none;">
+  <a href="javascript:open_menu_box('hosts')" class="menu_link  menu_link_create">
+	  <div class="menu_link_title">
+	    0 hosts
+	  </div>
+  </a>
+</div>  
+
+    <div class="clear"></div>
+  </div>
+  <div class="menu_box_footer"></div>
+</div>
+
+<div class="menu_box">
+  <div class="menu_box_header">
+	  <div class="menu_box_arrow"><img alt="Menu_arrow_down" id="recipes_arrow_down" onclick="close_menu_box('recipes'); return false" src="/images/peritor_theme/menu_arrow_down.gif?1190892233" style=";" /><img alt="Menu_arrow_right" id="recipes_arrow_right" onclick="open_menu_box('recipes'); return false" src="/images/peritor_theme/menu_arrow_right.gif?1190892233" style="display:none;;" /></div>
+<div class="menu_title"><a href="/recipes">Recipes</a></div>
+  </div>
+  <div class="menu_box_body">
+    <div id="recipes_open_content" style="">
+  
+    <div class="menu_item">No recipe created yet</div>
+    <a href="/recipes/new" class="menu_link  menu_link_create">
+  	  <div class="menu_link_title">
+  	    New recipe
+  	  </div>
+	  </a>
+  
+</div>
+<div id="recipes_closed_content" style="display:none;">
+  <a href="javascript:open_menu_box('recipes')" class="menu_link  menu_link_create">
+	  <div class="menu_link_title">
+	    0 recipes
+	  </div>
+  </a>
+</div>
+
+    <div class="clear"></div>
+  </div>
+  <div class="menu_box_footer"></div>
+</div>
+
+<div class="menu_box">
+  <div class="menu_box_header">
+	  <div class="menu_box_arrow"><img alt="Menu_arrow_down" id="users_arrow_down" onclick="close_menu_box('users'); return false" src="/images/peritor_theme/menu_arrow_down.gif?1190892233" style=";" /><img alt="Menu_arrow_right" id="users_arrow_right" onclick="open_menu_box('users'); return false" src="/images/peritor_theme/menu_arrow_right.gif?1190892233" style="display:none;;" /></div>
+<div class="menu_title"><a href="/users">Users</a></div>
+  </div>
+  <div class="menu_box_body">
+    <div id="users_open_content" style="">
+  
+    
+      <a href="/users/1" class="menu_link " title="admin">
+		    <div class="menu_link_title">
+		      admin
+		    </div>
+	    </a>
+    
+  
+</div>
+<div id="users_closed_content" style="display:none;">
+  <a href="javascript:open_menu_box('users')" class="menu_link  menu_link_create">
+	  <div class="menu_link_title">
+	    1 user
+	  </div>
+  </a>  
+</div>
+
+    <div class="clear"></div>
+  </div>
+  <div class="menu_box_footer"></div>
+</div>
+
+
+
+        </div>
+      
+      <div class="content">
+        
+  <div class='breadcrumb'><b>
+    <a href="/projects/1" class="arrow_link" style="float:right">Back to project</a>
+    <a href="/projects">Projects</a> &gt; 
+    Project <a href="/projects/1">teste</a> &gt; 
+    Stage <a href="/projects/1/stages/1">dev</a>
+  </b></div>
+
+        
+        
+  
+  <h2>Stage <a href="/projects/1/stages/1">dev</a></h2>
+
+
+        
+
+        
+
+        
+        
+        <div class="special_box">
+  <div class="special_box_top"></div>
+  <div class="special_box_middle deployments_box">
+   <p><a href="/projects/1/stages/1/deployments/new?task=deploy" class="arrow_link">Deploy</a></p>
+   <p><a href="/projects/1/stages/1/deployments/new?task=deploy:migrations" class="arrow_link">Deploy and migrate</a></p>
+   <p><a href="/projects/1/stages/1/deployments/new?task=deploy:restart" class="arrow_link">Restart app servers</a></p>
+   <p><a href="/projects/1/stages/1/deployments/new?task=deploy:setup" class="arrow_link">Setup</a></p>
+   <p>
+     <select id="task" name="task"><option value="">All tasks: </option>
+<option value="deploy">deploy</option>
+<option value="deploy:check">deploy:check</option>
+<option value="deploy:cleanup">deploy:cleanup</option>
+<option value="deploy:cold">deploy:cold</option>
+<option value="deploy:finalize_update">deploy:finalize_update</option>
+<option value="deploy:migrate">deploy:migrate</option>
+<option value="deploy:migrations">deploy:migrations</option>
+<option value="deploy:pending">deploy:pending</option>
+<option value="deploy:pending:diff">deploy:pending:diff</option>
+<option value="deploy:restart">deploy:restart</option>
+<option value="deploy:rollback">deploy:rollback</option>
+<option value="deploy:rollback:cleanup">deploy:rollback:cleanup</option>
+<option value="deploy:rollback:code">deploy:rollback:code</option>
+<option value="deploy:rollback:revision">deploy:rollback:revision</option>
+<option value="deploy:setup">deploy:setup</option>
+<option value="deploy:start">deploy:start</option>
+<option value="deploy:stop">deploy:stop</option>
+<option value="deploy:symlink">deploy:symlink</option>
+<option value="deploy:update">deploy:update</option>
+<option value="deploy:update_code">deploy:update_code</option>
+<option value="deploy:upload">deploy:upload</option>
+<option value="deploy:web:disable">deploy:web:disable</option>
+<option value="deploy:web:enable">deploy:web:enable</option></select>
+   </p>
+   <p>
+     <a href="/projects/1/stages/1/deployments/new" class="arrow_link" onclick="location.href='/projects/1/stages/1/deployments/new?task=' + $F('task'); return false">Execute</a> |
+     <a href="/projects/1/stages/1/tasks" class="arrow_link" onclick="location.href='/projects/1/stages/1/tasks#' + $F('task'); return false">Info</a>
+   </p>
+    </div>
+  <div class="special_box_bottom"></div>
+</div>
+
+<div class="box">
+  <div class="box_top"></div>
+  <div class="box_middle">
+	  <p>
+	    <b>Name:</b>
+		   dev
+		</p>
+		<p>
+		  <b>Project:</b>
+		  <a href="http://localhost:3000/projects/1">teste</a>
+		</p>
+		<p>
+		  <b>Alert on deploy:</b>
+		  
+		</p>
+		<p>
+		  <b>#Hosts:</b>
+		  0
+		</p>
+		<br />
+		<a href="/projects/1/stages/1/edit" class="arrow_link">Edit stage</a> | 
+		<a href="/projects/1/stages/1" class="arrow_link" onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', '69375afd4db4561514d1d1b6f2f4d326d0951b73'); f.appendChild(s);f.submit(); };return false;">Delete stage</a> | 
+		<a href="/projects/1/stages/1/capfile" class="arrow_link" onclick="loadWindow('/projects/1/stages/1/capfile'); return false">Export capfile</a>
+	</div>	
+  <div class="box_bottom"></div>
+</div>
+
+
+<div class="clear"></div>
+<br>
+
+<fieldset class="fieldset">
+  <legend>Stage specific configuration</legend>
+  
+  <br/>
+    No stage specific configuration added yet. Stage specific configuration entries override project configuration entries. 
+    Typical examples are a different repository path (e.g. trunk) or a different Rails environment.
+    Please add configuration entries.
+  <br/>
+
+
+  <br />
+  <div id="effective_config" style="display:none;">
+    <h3>Effective Configuration</h3>
+
+
+  <table class="sortable">
+    <tr>
+      <th width="1%">Name</th>
+      <th width="98%">Value</th>
+      <th width="1%">Prompt</th>
+    </tr>
+  
+    <tr class="even">
+      <td title="application">application</td>
+      <td title="teste">teste</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="deploy_to">deploy_to</td>
+      <td title="/path/to/deployment_base">/path/to/deployment_base</td>
+      <td></td>
+    </tr>
+  
+    <tr class="even">
+      <td title="deploy_via">deploy_via</td>
+      <td title=":checkout">:checkout</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="password">password</td>
+      <td title="deployment_user(SSH user) password">************</td>
+      <td></td>
+    </tr>
+  
+    <tr class="even">
+      <td title="rails_env">rails_env</td>
+      <td title="production">production</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="repository">repository</td>
+      <td title="https://svn.example.com/project/trunk">https://svn.example.com/project/trunk</td>
+      <td></td>
+    </tr>
+  
+    <tr class="even">
+      <td title="runner">runner</td>
+      <td title="user to run as with sudo">user to run as with sudo</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="scm">scm</td>
+      <td title="subversion">subversion</td>
+      <td></td>
+    </tr>
+  
+    <tr class="even">
+      <td title="scm_password">scm_password</td>
+      <td title="your_SVN_password">************</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="scm_username">scm_username</td>
+      <td title="your_SVN_user">your_SVN_user</td>
+      <td></td>
+    </tr>
+  
+    <tr class="even">
+      <td title="use_sudo">use_sudo</td>
+      <td title="true">true</td>
+      <td></td>
+    </tr>
+  
+    <tr class="odd">
+      <td title="user">user</td>
+      <td title="deployment_user(SSH login)">deployment_user(SSH login)</td>
+      <td></td>
+    </tr>
+  
+  </table>
+
+
+    <br />
+  </div>
+  <a href="/projects/1/stages/1/stage_configurations/new" class="arrow_link">New configuration</a> | 
+  <a id="s_e_c" href="#" onclick="show_effective_config(); return false" class="arrow_link">Show effective configuration</a>
+  <a id="h_e_c" href="#" onclick="hide_effective_config(); return false" class="arrow_link" style="display:none;">Hide effective configuration</a>
+</fieldset>
+
+<br /><br />
+
+<fieldset class="fieldset">
+  <legend>Used recipes</legend>
+  
+  <br/>
+    No recipes configured yet.<br />
+    <a href="/recipes">Recipes</a> are custom Capistrano tasks and variables that can be used across stages.
+  <br/>
+
+  <br />
+  <a href="/projects/1/stages/1/recipes" class="arrow_link">Manage stage recipes</a>
+</fieldset>
+
+<br /><br />
+
+<fieldset class="fieldset">
+  <legend>Deployed hosts</legend>
+  
+  <p>
+    No hosts for this stage. A host is a physical host that this stage should deploy to.
+    Please add a host.
+  </p>
+
+  <br />
+  <a href="/projects/1/stages/1/roles/new" class="arrow_link">Add host</a>
+</fieldset>
+
+<br /><br />
+
+<fieldset class="fieldset">
+  <legend>Recent deployment history</legend>
+  
+  <br/>
+    This stage was never deployed. 
+  <br/>
+
+<br />
+
+  A deployment is currently not possible:<br />
+  <ul><li>no hosts are present. You need at least one host.</li></ul>
+
+
+
+</fieldset>
+
+<br />
+
+
+
+
+
+
+
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div id="app_bottom"></div>
+
+  <div id="footer">
+    <div id="footer_logged">
+      
+       Logged in as <a href="/users/1">admin</a> | <a href="/logout">Logout</a> 
+      
+    </div>
+    Copyright &copy; 2007, 2008 | Version 1.4 | <a href="http://labs.peritor.com/webistrano" target="_blank">http://labs.peritor.com/webistrano</a>
+  </div>
+</body>
+
+</html>
