@@ -5,7 +5,6 @@ from django.shortcuts import render_to_response
 
 def project(request, action):
 	if action:
-		html = "<html><body>action %s.</body></html>" % action
-		return HttpResponse(html)
+		return render_to_response('create_project.html', { 'action' : action })
 	else:
 		return HttpResponse("nenhuma action")
