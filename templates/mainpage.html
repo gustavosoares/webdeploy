@@ -4,6 +4,23 @@
     <title>WebFabric</title>
     <script src="media/js/prototype.js" type="text/javascript"></script>
     <script src="media/js/scriptaculous.js" type="text/javascript"></script>
+    <script src="media/js/application.js?1190892233" type="text/javascript"></script>
+    <link href="media/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript">
+        function show_effective_config(){
+          $('h_e_c').show();
+          $('s_e_c').hide();
+          $('effective_config').show();
+        }
+        
+        function hide_effective_config(){
+           $('h_e_c').hide();
+           $('s_e_c').show();
+           $('effective_config').hide();
+         }
+    </script>
+     
 </head>
 <body>
     <!-- Insert your content here -->
@@ -13,6 +30,52 @@
     <script type="text/javascript">
         new Ajax.InPlaceEditor('editme', '/demoajaxreturn.html');
     </script>
-
+<hr>
+<div id="app_top">
+    <div id="header">
+      <div id="header_claim">Deployment the easy way</div>
+    </div>
+    <div id="main_content">
+        <div class="menu">
+            <div class="menu_box">
+                <div class="menu_box_header">
+                    <div class="menu_box_arrow">
+                        <img alt="Menu_arrow_down" id="projects_arrow_down" onclick="close_menu_box('projects'); return false" src="media/images/menu_arrow_down.gif?1190892233" style=";" />
+                        <img alt="Menu_arrow_right" id="projects_arrow_right" onclick="open_menu_box('projects'); return false" src="media/images/menu_arrow_right.gif?1190892233" style="display:none;;" />
+                    </div>
+                    <div class="menu_title">
+                        <a href="/webfabric/projects">Projects</a>
+                    </div>
+                        <div id="projects_open_content" style="">
+                            <!-- listagem dos projetos, passado o id do projeto-->
+                            <a href="/webfabric/projects/1" class="menu_link " title="teste">
+                                <div class="menu_icons">
+                                    <img alt="Arrow_menu_right" border="0" height="20" id="project_1_arrow_right" onclick="open_menu('project_1'); return false;" src="media/images/arrow_menu_right.gif?1190892233" style="display:none;" width="20" />
+                                    <img alt="Arrow_menu_down" border="0" height="20" id="project_1_arrow_down" onclick="close_menu('project_1'); return false;" src="media/images/arrow_menu_down.gif?1190892233" style="" width="20" />
+                                </div>
+                                <div class="menu_link_title has_submenu">
+                                    teste
+                                </div>
+                            </a>
+                            <!-- fim da listagems dos projetos -->
+                            <!-- listagem dos ambientes -->
+                            <div id="project_1_stages" style="">
+                                <a href="/projects/1/stages/1" class="menu_link active_menu_link" title="dev">
+                                    <div class="menu_link_title" style="padding-left: 30px; *padding-left: 33px">dev</div>
+                                </a>
+                            </div>
+                            <!-- fim da listagems dos ambientes -->
+                            <div id="projects_closed_content" style="display:none;">
+                                <a href="javascript:open_menu_box('projects')" class="menu_link  menu_link_create">
+                                    <div class="menu_link_title">1 project</div>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
+                </div>
+                <div class="menu_box_footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
