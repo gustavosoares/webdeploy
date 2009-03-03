@@ -41,7 +41,6 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -50,7 +49,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '91$15(#!k2iv#lqbr8&rn7of(%v3$#te8+levssi%7*e6d7tb9'
@@ -70,11 +69,11 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'deploy.urls'
 
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'deploy.webfabric',
+	'deploy.admin',
 )
