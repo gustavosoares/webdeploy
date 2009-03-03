@@ -5,13 +5,24 @@
     <script src="/media/js/prototype.js" type="text/javascript"></script>
     <script src="/media/js/scriptaculous.js" type="text/javascript"></script>
     <script src="/media/js/application.js" type="text/javascript"></script>
-    <link href="/media/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    
+	<script src="/admin/jsi18n/" type="text/javascript"></script>
+	<script src="/admin_media/js/core.js"></script>
+	<script src="/admin_media/js/dateparse.js"></script>
+	<script src="/admin_media/js/timeparse.js"></script>
+	<script src="/admin_media/js/calendar.js"></script>
+	<script src="/admin_media/js/admin/DateTimeShortcuts.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" href="/admin_media/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="/admin_media/css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="/admin_media/css/widgets.css" />
+    <!--link href="/media/css/application.css" media="screen" rel="stylesheet" type="text/css" /-->
 </head>
 <body>
     <!-- Insert your content here -->
     <h1>action : {{ action }}</h1>
     {% if form %}
-    <h1>Project Creation</h1>
+    <h2>Project Creation</h2></br>
 	<form action="." method="POST">
 		<table>
 			{{ form.as_table }}
