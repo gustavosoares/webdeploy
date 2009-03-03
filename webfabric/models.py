@@ -28,7 +28,6 @@ class Project(models.Model):
 class Project_Configuration(models.Model):
 	name = models.CharField(max_length=255)
 	value = models.CharField(max_length=255)
-	creation_dt = models.DateTimeField()
 	project = models.ForeignKey(Project)
 
 	def __unicode__(self):
@@ -41,4 +40,5 @@ class Environment(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
+
 

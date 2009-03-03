@@ -12,6 +12,9 @@ class Template_ConfigurationAdmin(admin.ModelAdmin):
 class EnvironmentAdmin(admin.ModelAdmin):
 	pass
 
+class Project_ConfigurationInline(admin.TabularInline):
+    model = Project_Configuration
+
 class ProjectAdmin(admin.ModelAdmin):
 	pass
 

@@ -10,5 +10,14 @@
 <body>
     <!-- Insert your content here -->
     <h1>action : {{ action }}</h1>
+    {% if form %}
+    <h1>Project Creation</h1>
+	<form action="." method="POST">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+	{% endif %}	
 </body>
 </html>
