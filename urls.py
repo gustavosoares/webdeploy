@@ -19,3 +19,14 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'^project/(\w+)/?$', project),
 )
+
+from django.conf import settings
+import os
+
+path = os.path.dirname(__file__)
+MEDIA_ROOT = (os.path.abspath(path + '/media'))
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '%s' % MEDIA_ROOT}),
+    )
