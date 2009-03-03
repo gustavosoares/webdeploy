@@ -20,8 +20,8 @@ DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysq
 DATABASE_NAME = 'deploy'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
-#DATABASE_HOST = '/opt/local/var/run/mysql5/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_HOST = '/var/run/mysqld/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_HOST = '/opt/local/var/run/mysql5/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
+#DATABASE_HOST = '/var/run/mysqld/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = '3306'             # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
@@ -40,10 +40,6 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -72,12 +68,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'deploy.urls'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
