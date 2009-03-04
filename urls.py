@@ -17,7 +17,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
-    (r'^project/(?P<action>\w+)?/?$', project),
+    (r'^project/(?P<action>\w+)/?(?P<step>\d+)?/?$', project),
+
 )
 
 from django.conf import settings

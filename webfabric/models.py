@@ -19,7 +19,8 @@ class Template_Configuration(models.Model):
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=200)
-	creation_dt = models.DateTimeField()
+	creation_date = models.DateField()
+	creation_time = models.TimeField()
 	template = models.ForeignKey(Template)
 
 	def __unicode__(self):
