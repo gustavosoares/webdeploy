@@ -15,7 +15,7 @@ def project(request, action, step):
 		if form.is_valid():
 			name = form.cleaned_data['name']
 			if Project.objects.filter(name=name).distinct():
-				return render_to_response('error.html', {'msg' : "O projeto %s ja existe!!!!" % name})
+				return render_to_response('project_create.html', {'action' : action, 'form' : form, 'error' : name})
 			else: 
 				description = form.cleaned_data['description']
 				creation_date = form.cleaned_data['creation_date']
