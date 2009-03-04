@@ -31,7 +31,7 @@ def project(request, action, step):
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
 		form = ProjectForm()
-		return render_to_response('project_create.html', {'action' : action, 'form' : form, 'step' : 0})
+		return render_to_response('project_create.html', {'action' : action, 'form' : form})
 		
 #	else:
 #		return render_to_response('project_create.html', {'action' : 'desconhecida'})
