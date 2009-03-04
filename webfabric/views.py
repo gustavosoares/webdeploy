@@ -7,20 +7,21 @@ from webfabric.forms import ProjectForm
 from webfabric.models import Project
 from webfabric.models import Template
 
-def project(request, action, step):
+def project(request, action, step=0):
 
 #	if action == 'create':
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
 		if form.is_valid():
-			name = form.cleaned_data['name']
+			form_dict = read_form(form)
+			name = form_dict['name']
 			if Project.objects.filter(name=name).distinct():
 				return render_to_response('project_create.html', {'action' : action, 'form' : form, 'error' : name})
 			else: 
-				description = form.cleaned_data['description']
-				creation_date = form.cleaned_data['creation_date']
-				creation_time = form.cleaned_data['creation_time']
-				template_id = form.cleaned_data['template']
+				description = form_dict['description']
+				creation_date = form_dict['creation_date']
+				creation_time = form_dict['creation_time']
+				template_id = form_dict['template']
 				template = Template.objects.get(id=template_id)
 				p = Project(name=name, description=description, creation_date=creation_date,
 				creation_time=creation_time, template=template)
@@ -30,8 +31,30 @@ def project(request, action, step):
 		else:
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
-		form = ProjectForm()
+		if step > 0:
+			form = ProjectForm(initial={'name' : 'projeto criado'})
+		else:
+			form = ProjectForm()
+			
 		return render_to_response('project_create.html', {'action' : action, 'form' : form})
 		
 #	else:
 #		return render_to_response('project_create.html', {'action' : 'desconhecida'})
+
+#return a dict from a project form
+def read_form(form):
+	name = form.cleaned_data['name']
+	description = form.cleaned_data['description']
+	creation_date = form.cleaned_data['creation_date']
+	creation_time = form.cleaned_data['creation_time']
+	template_id = form.cleaned_data['template']
+		
+	form_dict = { 
+		'name' : name, 
+		'description' : description, 
+		'creation_date' : creation_date,
+		'creation_time' : creation_time,
+		'template' : template_id
+		}
+	
+	return form_dict
