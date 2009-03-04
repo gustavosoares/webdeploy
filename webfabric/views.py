@@ -32,6 +32,7 @@ def project(request, action, step=0):
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
 		if step > 0:
+			form_dict = read_form(form)
 			form = ProjectForm(initial={'name' : 'projeto criado'})
 		else:
 			form = ProjectForm()
