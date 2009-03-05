@@ -18,5 +18,16 @@
 		</table>
 		<p><input type="submit" value="Submit"></p>
 	</form>
-	{% endif %}	
+    {% endif %}
+    {% if form_configuration %}
+        </hr>
+        <h2>Project Configuration</h2></br>
+	<form action="." method="POST">
+		<table>
+			{{ form_configuration.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+    {% endif %}
+
 {% endblock %}

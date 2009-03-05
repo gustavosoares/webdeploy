@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm
 from deploy.admin.widgets import AdminDateWidget
 from deploy.admin.widgets import AdminTimeWidget
 from deploy.webfabric.models import Template
@@ -18,5 +19,7 @@ class ProjectForm(forms.Form):
 		#CHOICES_LIST.append(l)
 	template = forms.ChoiceField(choices=template_list)
 
-class Project_ConfigurationForm(forms.Form):
-	pass
+class Project_ConfigurationForm(ModelForm):
+	class Meta:
+		model = Project_Configuration
+	

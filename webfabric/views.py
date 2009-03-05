@@ -4,8 +4,11 @@ from django.http import HttpResponseRedirect
 from django import forms
 from django.shortcuts import render_to_response
 from webfabric.forms import ProjectForm
+from webfabric.forms import Project_ConfigurationForm
 from webfabric.models import Project
+from webfabric.models import Project_Configuration
 from webfabric.models import Template
+from webfabric.models import Template_Configuration
 
 def project(request, action, step=0):
 
@@ -39,6 +42,29 @@ def project(request, action, step=0):
 				'creation_time' : project.creation_time,
 				'template' : project.template_id
 				})
+			#project configuration exists?
+			p_configuration = Project_Configuration.objects.filter(project=step).values_list()
+			if not p_configuration:
+				template_configuration = Template_Configuration.objects.filter(template=project.template_id).values_list()
+				for t in template_configuration:
+					tupla = t
+					name = tupla[1]
+					value = tupla[2]
+					p = Project_Configuration(name = name,
+								value = value,
+								project_id = step
+								)
+					p.save()
+				p_configuration = Project_Configuration.objects.filter(project=step).values_list()
+			
+			init_form = {}			
+			for p_item in p_configuration:
+				p_aux = p_item
+				name = p_aux[1]
+				value = p_aux[2]
+				init_form[name] = value
+			form_configuration = Project_ConfigurationForm(init_form)
+			return render_to_response('project_create.html', {'action' : action, 'form' : form, 'form_configuration' : form_configuration})
 		else:
 			form = ProjectForm()
 			
