@@ -32,8 +32,13 @@ def project(request, action, step=0):
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
 		if step > 0:
-			form_dict = read_form(form)
-			form = ProjectForm(initial={'name' : 'projeto criado'})
+			project = Project.objects.get(id=step)
+			form = ProjectForm(initial={'name' : project.name,
+				'description' : project.description,
+				'creation_date' : project.creation_date,
+				'creation_time' : project.creation_time,
+				'template' : project.template_id
+				})
 		else:
 			form = ProjectForm()
 			
