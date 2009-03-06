@@ -101,7 +101,7 @@ def project_stage(request, project_id=0, step=0):
 		else:
 			action = 'stage creation'
 			form = StageForm(project_id)
-			p = Project.objects.filter(id=2)
+			p = Project.objects.filter(id=project_id)
 			project_name = p[0].name
 			return render_to_response('stage.html', {'action' : action, 'form' : form, 'project' : project_name})
 			

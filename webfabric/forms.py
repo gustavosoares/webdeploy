@@ -52,8 +52,7 @@ class Create_StageForm(forms.Form):
 
 class StageForm(forms.Form):
 	def __init__(self, project_arg = None, *args, **kwargs):
-		super(StageForm, self).__init__(*args, **kwargs)
-		print type(project_arg)		
+		super(StageForm, self).__init__(*args, **kwargs)	
 		if type(project_arg).__name__ == 'ValuesListQuerySet':
 			stage = Stage.objects.filter(project=project_arg).values_list()
 			for s_item in stage:
