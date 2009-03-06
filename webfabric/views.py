@@ -57,13 +57,13 @@ def project(request, action, step=0):
 					p.save()
 				p_configuration = Project_Configuration.objects.filter(project=step).values_list()
 			
-			init_form = {}			
-			for p_item in p_configuration:
-				p_aux = p_item
-				name = p_aux[1]
-				value = p_aux[2]
-				init_form[name] = value
-			form_configuration = Project_ConfigurationForm(init_form)
+			#init_form = {}			
+			#for p_item in p_configuration:
+				#p_aux = p_item
+				#name = p_aux[1]
+				#value = p_aux[2]
+				#init_form[name] = value
+			form_configuration = Project_ConfigurationForm(p_configuration)
 			return render_to_response('project_create.html', {'action' : action, 'form' : form, 'form_configuration' : form_configuration})
 		else:
 			form = ProjectForm()
