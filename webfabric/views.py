@@ -75,8 +75,6 @@ def project_create_list(request, action='None', step=0):
 #saves a project configuration
 def project_save(request):
 	if request.method == 'POST':
-		print request.POST
-		print request.META['HTTP_REFERER']
 		for ids in request.POST.keys():
 			project_configuration = Project_Configuration.objects.get(id=ids)
 			project_configuration.value = request.POST[ids]
@@ -87,23 +85,55 @@ def project_save(request):
 		
 #saves a project configuration
 def project_stage(request, project_id=0, step=0):
+	action = 'stage creation'
 	if request.method == 'POST':
-		print request.POST
-		print request.META['HTTP_REFERER']
-		for ids in request.POST.keys():
-			project_configuration = Project_Configuration.objects.get(id=ids)
-			project_configuration.value = request.POST[ids]
-			project_configuration.save()
-		return HttpResponseRedirect(request.META['HTTP_REFERER'])
+		form = StageForm(None, request.POST)
+		if form.is_valid():
+			name_var = request.POST['name']
+			s = Stage.objects.filter(project=project_id, name=name_var)
+			p = Project.objects.filter(id=project_id)
+			project_name = p[0].name
+			if s:
+				form = StageForm(project_id)
+				return render_to_response('stage.html', {'action' : action, 
+							'form' : form, 
+							'error' : name_var, 
+							'project' : project_name, 
+							'project_id' : project_id})
+			else:
+				user_var = request.POST['user']
+				hosts_var = request.POST['hosts']
+				deploy_to_var = request.POST['deploy_to']
+				p = Project.objects.get(id=project_id)
+				stage = Stage(name = name_var,
+						user = user_var,
+						hosts = hosts_var,
+						deploy_to = deploy_to_var,
+						project = p)
+				stage.save()
+				form = StageForm(None,initial={'name' : name_var,
+								'user' : user_var,
+								'hosts' : hosts_var,
+								'deploy_to' : deploy_to_var})
+				return render_to_response('stage.html', {'action' : action, 
+							'form' : form, 
+							'project_name' : project_name,
+							'stage' : name_var, 
+							'project' : project_name, 
+							'project_id' : project_id})
+		else:
+			return HttpResponse("form is not valid")
 	else:
 		if step > 0:
 			project = Project.objects.filter(project=step).values_list()
 		else:
-			action = 'stage creation'
 			form = StageForm(project_id)
 			p = Project.objects.filter(id=project_id)
 			project_name = p[0].name
-			return render_to_response('stage.html', {'action' : action, 'form' : form, 'project' : project_name})
+			return render_to_response('stage.html', {'action' : action, 
+						'form' : form, 
+						'project' : project_name,
+						'project_id' : project_id})
 			
 			
 

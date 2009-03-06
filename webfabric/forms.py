@@ -74,4 +74,10 @@ class StageForm(forms.Form):
 			self.fields['deploy_to'] = forms.CharField(label="config.deploy_to", 
 								widget=forms.TextInput(attrs={'size':'60'}),
 								initial=p_configuration[0].value)
+		elif type(project_arg).__name__ == 'NoneType':
+			self.fields['name'] = forms.CharField(label="name")
+			self.fields['user'] = forms.CharField(label="config.fab_user", widget=forms.TextInput(attrs={'size':'60'}))
+			self.fields['hosts']= forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
+			self.fields['deploy_to'] = forms.CharField(label="config.deploy_to", 
+								widget=forms.TextInput(attrs={'size':'60'}))
 

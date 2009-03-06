@@ -11,12 +11,16 @@
     
     {% if form %}
     <h2>Stage Creation : {{ project }}</h2></br>
-	<form action="." method="POST">
+	<form action="/project/{{ project_id }}/stage" method="POST">
 		<table>
 			{{ form.as_table }}
 		</table>
 		<p><input type="submit" value="Submit"></p>
 	</form>
+    {% endif %}
+    {% if stage %}
+	</hr>
+	<h2><font color="red">Stage {{ stage }} for project {{ project_name }} created</font></h2></br>
     {% endif %}
     {% if form_configuration %}
         </hr>
