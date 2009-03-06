@@ -71,12 +71,13 @@ def project_create_list(request, action='None', step=0):
 #saves a project configuration
 def project_save(request):
 	if request.method == 'POST':
+		print request.POST
+		print request.META['HTTP_REFERER']
 		for ids in request.POST.keys():
 			project_configuration = Project_Configuration.objects.get(id=ids)
 			project_configuration.value = request.POST[ids]
 			project_configuration.save()
-			print ids
-		return HttpResponse("configuration commited")
+		return HttpResponseRedirect(request.META['HTTP_REFERER'])
 	else:
 		return HttpResponse("configuration not commited")
 		
