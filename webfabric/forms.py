@@ -13,13 +13,32 @@ class ProjectForm(forms.Form):
 	creation_date = forms.CharField(widget=AdminDateWidget())
 	creation_time = forms.CharField(widget=AdminTimeWidget())
 	#retorna array com tuplas
-	#CHOICES_LIST = [('0', '----------')]
 	template_list = Template.objects.all().values_list()
-	#for l in template_list:
-		#CHOICES_LIST.append(l)
 	template = forms.ChoiceField(choices=template_list)
 
+'''
 class Project_ConfigurationForm(ModelForm):
 	class Meta:
 		model = Project_Configuration
+'''
+
+
+class Project_ConfigurationForm(forms.Form):
+	def __init__(self, project, *args, **kwargs):
+		super(Project_ConfigurationForm, self).__init__(*args, **kwargs)
+		p_configuration = None
+		if type(project).__name__ == 'ValuesListQuerySet':
+			p_configuration = project
+		else:
+			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
+		for p_item in p_configuration:
+			p_aux = p_item
+			id = p_aux[0]
+			name = p_aux[1]
+			value = p_aux[2]
+			self.fields[id] = forms.CharField(label=name, 
+										initial=value,
+										widget=forms.TextInput(attrs={'size':'60'})
+										)
+			
 	
