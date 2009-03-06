@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}WebFabric - Stage Creation{% endblock %}
+
+
+{% block content %}
+    <!-- Insert your content here -->
+    {% if error %}
+    	<h2><font color="red">Stage {{ error }} already exists!!!</font></h2></br>
+    {% endif %}
+    
+    {% if form %}
+    <h2>Stage Creation - {{ project }}</h2></br>
+	<form action="." method="POST">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+    {% endif %}
+    {% if form_configuration %}
+        </hr>
+        <h2>Project Configuration</h2></br>
+	<form action="/project/save/" method="POST">
+		<table>
+			{{ form_configuration.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+    {% endif %}
+
+{% endblock %}

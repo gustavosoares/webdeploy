@@ -3,12 +3,16 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django import forms
 from django.shortcuts import render_to_response
+#FORMS
 from webfabric.forms import ProjectForm
 from webfabric.forms import Project_ConfigurationForm
+from webfabric.forms import StageForm
+#MODELS
 from webfabric.models import Project
 from webfabric.models import Project_Configuration
 from webfabric.models import Template
 from webfabric.models import Template_Configuration
+from webfabric.models import Stage
 
 #create or list a project configuration
 def project_create_list(request, action='None', step=0):
@@ -81,7 +85,29 @@ def project_save(request):
 	else:
 		return HttpResponse("configuration not commited")
 		
-	
+#saves a project configuration
+def project_stage(request, project_id=0, step=0):
+	if request.method == 'POST':
+		print request.POST
+		print request.META['HTTP_REFERER']
+		for ids in request.POST.keys():
+			project_configuration = Project_Configuration.objects.get(id=ids)
+			project_configuration.value = request.POST[ids]
+			project_configuration.save()
+		return HttpResponseRedirect(request.META['HTTP_REFERER'])
+	else:
+		if step > 0:
+			project = Project.objects.filter(project=step).values_list()
+		else:
+			action = 'stage creation'
+			form = StageForm(project_id)
+			p = Project.objects.filter(id=2)
+			project_name = p[0].name
+			return render_to_response('stage.html', {'action' : action, 'form' : form, 'project' : project_name})
+			
+			
+
+		
 #return a dict from a project form
 def read_form(form):
 	name = form.cleaned_data['name']

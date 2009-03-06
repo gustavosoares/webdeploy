@@ -34,9 +34,11 @@ class Project_Configuration(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.name)
 		
-class Environment(models.Model):
+class Stage(models.Model):
 	name = models.CharField(max_length=100)
-	hosts = models.CharField(max_length=500)
+	user = models.CharField(max_length=40) #config.fab_user
+	hosts = models.CharField(max_length=500) #config.fab_hosts
+	deploy_to = models.CharField(max_length=100) #config.deploy_to
 	project = models.ForeignKey(Project)
 
 	def __unicode__(self):

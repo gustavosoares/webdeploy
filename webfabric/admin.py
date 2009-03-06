@@ -9,11 +9,12 @@ class Template_ConfigurationAdmin(admin.ModelAdmin):
 	list_filter = ('template', 'name')
 	ordering = ('-template',)
 
-class EnvironmentAdmin(admin.ModelAdmin):
+
+class StageAdmin(admin.ModelAdmin):
 	pass
 
 class Project_ConfigurationInline(admin.TabularInline):
-    model = Project_Configuration
+	model = Project_Configuration
 
 class ProjectAdmin(admin.ModelAdmin):
 	pass
@@ -21,8 +22,8 @@ class ProjectAdmin(admin.ModelAdmin):
 class Project_ConfigurationAdmin(admin.ModelAdmin):
 	pass
 
-#admin.site.register(Template, TemplateAdmin)
+admin.site.register(Template, TemplateAdmin)
 admin.site.register(Template_Configuration, Template_ConfigurationAdmin)
-admin.site.register(Environment, EnvironmentAdmin)
+admin.site.register(Stage, StageAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Project_Configuration, Project_ConfigurationAdmin)
