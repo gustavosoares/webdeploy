@@ -22,7 +22,7 @@
     {% if form_configuration %}
         </hr>
         <h2>Project Configuration</h2></br>
-	<form action="." method="POST">
+	<form action="/project/save/" method="POST">
 		<table>
 			{{ form_configuration.as_table }}
 		</table>

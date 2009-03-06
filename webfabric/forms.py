@@ -27,9 +27,10 @@ class Project_ConfigurationForm(forms.Form):
 	def __init__(self, project, *args, **kwargs):
 		super(Project_ConfigurationForm, self).__init__(*args, **kwargs)
 		p_configuration = None
+		
 		if type(project).__name__ == 'ValuesListQuerySet':
 			p_configuration = project
-		else:
+		else :
 			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 		for p_item in p_configuration:
 			p_aux = p_item

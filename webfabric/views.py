@@ -10,7 +10,8 @@ from webfabric.models import Project_Configuration
 from webfabric.models import Template
 from webfabric.models import Template_Configuration
 
-def project(request, action, step=0):
+#create or list a project configuration
+def project_create_list(request, action='None', step=0):
 
 #	if action == 'create':
 	if request.method == 'POST':
@@ -67,6 +68,19 @@ def project(request, action, step=0):
 #	else:
 #		return render_to_response('project_create.html', {'action' : 'desconhecida'})
 
+#saves a project configuration
+def project_save(request):
+	if request.method == 'POST':
+		for ids in request.POST.keys():
+			project_configuration = Project_Configuration.objects.get(id=ids)
+			project_configuration.value = request.POST[ids]
+			project_configuration.save()
+			print ids
+		return HttpResponse("configuration commited")
+	else:
+		return HttpResponse("configuration not commited")
+		
+	
 #return a dict from a project form
 def read_form(form):
 	name = form.cleaned_data['name']
