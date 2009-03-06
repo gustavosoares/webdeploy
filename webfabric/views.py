@@ -83,7 +83,7 @@ def project_save(request):
 	else:
 		return HttpResponse("configuration not commited")
 		
-#saves a project configuration
+#manage project stages
 def project_stage(request, project_id=0, step=0):
 	action = 'stage creation'
 	if request.method == 'POST':
@@ -125,15 +125,19 @@ def project_stage(request, project_id=0, step=0):
 			return HttpResponse("form is not valid")
 	else:
 		if step > 0:
-			project = Project.objects.filter(project=step).values_list()
+			project = Project.objects.filter(project=project_id).values_list()
 		else:
-			form = StageForm(project_id)
-			p = Project.objects.filter(id=project_id)
-			project_name = p[0].name
-			return render_to_response('stage.html', {'action' : action, 
-						'form' : form, 
-						'project' : project_name,
-						'project_id' : project_id})
+			stage = project = Stage.objects.filter(project=project_id)
+			if stage:
+				form = StageForm(project_id)
+				p = Project.objects.filter(id=project_id)
+				project_name = p[0].name
+				return render_to_response('stage.html', {'action' : action, 
+							'form' : form, 
+							'project' : project_name,
+							'project_id' : project_id})
+			else: #list projects
+				pass
 			
 			
 

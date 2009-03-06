@@ -44,4 +44,10 @@ class Stage(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.name)
 
+class Tasks(models.Model):
+	name = models.CharField(max_length=100)
+	body = models.TextField()
+	project = models.ForeignKey(Project)
 
+	def __unicode__(self):
+		return u'%s' % (self.name)
