@@ -1,4 +1,5 @@
 from django.db import models
+import django_tables as tables 
 
 # Create your models here.
 class Template(models.Model):
@@ -43,6 +44,16 @@ class Stage(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
+
+class StageTable(tables.ModelTable):  
+	id = tables.Column(sortable=False, visible=False)
+	name = tables.Column(name='name')
+	user = tables.Column(name='config.fab_user')
+	hosts = tables.Column(name='config.fab_hosts')
+	deploy_to = tables.Column(name='config.deploy_to')
+	class Meta:  
+		model = Stage
+		exclude = ['project']
 
 class Tasks(models.Model):
 	name = models.CharField(max_length=100)

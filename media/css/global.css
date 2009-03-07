@@ -1,4 +1,4 @@
-body { margin:0; padding:0; font-size:12px; font-family:"Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif; color:#333; background:#fff; }
+body { margin:.2; padding:0; font-size:12px; font-family:"Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif; color:#333; background:#fff; }
 
 /* LINKS */
 a:link, a:visited { color: #5b80b2; text-decoration:none; }
@@ -58,7 +58,7 @@ table { border-collapse:collapse; border-color:#ccc; }
 td, th { font-size:11px; line-height:13px; border-bottom:1px solid #eee; vertical-align:top; padding:5px; font-family:"Lucida Grande", Verdana, Arial, sans-serif; }
 th { text-align:left; font-size:12px; font-weight:bold; }
 thead th, 
-tfoot td { color:#666; padding:2px 5px; font-size:11px; background:#e1e1e1 url(../img/admin/nav-bg.gif) top left repeat-x; border-left:1px solid #ddd; border-bottom:1px solid #ddd; }
+tfoot td { color:#666; padding:2px 5px; font-size:11px; background:#e1e1e1 url(/media/images/nav-bg.gif) top left repeat-x; border-left:1px solid #ddd; border-bottom:1px solid #ddd; }
 tfoot td { border-bottom:none; border-top:1px solid #ddd; }
 thead th:first-child, 
 tfoot td:first-child { border-left:none !important; }
@@ -73,12 +73,12 @@ tr.alt { background:#f6f6f6; }
 thead th a:link, thead th a:visited { color:#666; display:block; }
 table thead th.sorted { background-position:bottom left !important; }
 table thead th.sorted a { padding-right:13px; }
-table thead th.ascending a { background:url(../img/admin/arrow-down.gif) right .4em no-repeat; }
-table thead th.descending a { background:url(../img/admin/arrow-up.gif) right .4em no-repeat; }
+table thead th.ascending a { background:url(/media/images/arrow-down.gif) right .4em no-repeat; }
+table thead th.descending a { background:url(/media/images/arrow-up.gif) right .4em no-repeat; }
 
 /* ORDERABLE TABLES */
 table.orderable tbody tr td:hover { cursor:move; }
-table.orderable tbody tr td:first-child { padding-left:14px; background-image:url(../img/admin/nav-bg-grabber.gif); background-repeat:repeat-y; }
+table.orderable tbody tr td:first-child { padding-left:14px; background-image:url(/media/images/nav-bg-grabber.gif); background-repeat:repeat-y; }
 table.orderable-initalized .order-cell, body>tr>td.order-cell { display:none; }
 
 /* FORM DEFAULTS */
@@ -87,10 +87,10 @@ textarea { vertical-align:top !important; }
 input[type=text], input[type=password], textarea, select, .vTextField { border:1px solid #ccc; }
 
 /*  FORM BUTTONS  */
-.button, input[type=submit], input[type=button], .submit-row input { background:white url(../img/admin/nav-bg.gif) bottom repeat-x; padding:3px; color:black; border:1px solid #bbb; border-color:#ddd #aaa #aaa #ddd; }
-.button:active, input[type=submit]:active, input[type=button]:active { background-image:url(../img/admin/nav-bg-reverse.gif); background-position:top; }
-.button.default, input[type=submit].default, .submit-row input.default { border:2px solid #5b80b2; background:#7CA0C7 url(../img/admin/default-bg.gif) bottom repeat-x; font-weight:bold; color:white; float:right; }
-.button.default:active, input[type=submit].default:active { background-image:url(../img/admin/default-bg-reverse.gif); background-position:top; }
+.button, input[type=submit], input[type=button], .submit-row input { background:white url(/media/images/nav-bg.gif) bottom repeat-x; padding:3px; color:black; border:1px solid #bbb; border-color:#ddd #aaa #aaa #ddd; }
+.button:active, input[type=submit]:active, input[type=button]:active { background-image:url(/media/images/nav-bg-reverse.gif); background-position:top; }
+.button.default, input[type=submit].default, .submit-row input.default { border:2px solid #5b80b2; background:#7CA0C7 url(/media/images/default-bg.gif) bottom repeat-x; font-weight:bold; color:white; float:right; }
+.button.default:active, input[type=submit].default:active { background-image:url(/media/images/default-bg-reverse.gif); background-position:top; }
 
 /* MODULES */
 .module { border:1px solid #ccc; margin-bottom:5px; background:white; }
@@ -98,44 +98,44 @@ input[type=text], input[type=password], textarea, select, .vTextField { border:1
 .module blockquote { margin-left:12px; }
 .module ul, .module ol { margin-left:1.5em; }
 .module h3 { margin-top:.6em; }
-.module h2, .module caption, .inline-group h2 { margin:0; padding:2px 5px 3px 5px; font-size:11px; text-align:left; font-weight:bold; background:#7CA0C7 url(../img/admin/default-bg.gif) top left repeat-x; color:white; }
+.module h2, .module caption, .inline-group h2 { margin:0; padding:2px 5px 3px 5px; font-size:11px; text-align:left; font-weight:bold; background:#7CA0C7 url(/media/images/default-bg.gif) top left repeat-x; color:white; }
 .module table { border-collapse: collapse; }
 
 /* MESSAGES & ERRORS */
 ul.messagelist { padding:0 0 5px 0; margin:0; }
-ul.messagelist li { font-size:12px; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border-bottom:1px solid #ddd; color:#666; background:#ffc url(../img/admin/icon_success.gif) 5px .3em no-repeat; }
-.errornote { font-size:12px !important; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border:1px solid red; color:red;background:#ffc url(../img/admin/icon_error.gif) 5px .3em no-repeat; }
+ul.messagelist li { font-size:12px; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border-bottom:1px solid #ddd; color:#666; background:#ffc url(/media/images/icon_success.gif) 5px .3em no-repeat; }
+.errornote { font-size:12px !important; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border:1px solid red; color:red;background:#ffc url(/media/images/icon_error.gif) 5px .3em no-repeat; }
 ul.errorlist { margin:0 !important; padding:0 !important; }
-.errorlist li { font-size:12px !important; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border:1px solid red; color:white; background:red url(../img/admin/icon_alert.gif) 5px .3em no-repeat; }
+.errorlist li { font-size:12px !important; display:block; padding:4px 5px 4px 25px; margin:0 0 3px 0; border:1px solid red; color:white; background:red url(/media/images/icon_alert.gif) 5px .3em no-repeat; }
 td ul.errorlist { margin:0 !important; padding:0 !important; }
 td ul.errorlist li { margin:0 !important; }
 .errors { background:#ffc; }
 .errors input, .errors select { border:1px solid red; }
 div.system-message { background: #ffc; margin: 10px; padding: 6px 8px; font-size: .8em; }
-div.system-message p.system-message-title { padding:4px 5px 4px 25px; margin:0; color:red; background:#ffc url(../img/admin/icon_error.gif) 5px .3em no-repeat; }
+div.system-message p.system-message-title { padding:4px 5px 4px 25px; margin:0; color:red; background:#ffc url(/media/images/icon_error.gif) 5px .3em no-repeat; }
 .description { font-size:12px; padding:5px 0 0 12px; }
 
 /* BREADCRUMBS */
-div.breadcrumbs { background:white url(../img/admin/nav-bg-reverse.gif) 0 -10px repeat-x; padding:2px 8px 3px 8px; font-size:11px;  color:#999;  border-top:1px solid white; border-bottom:1px solid #ccc; text-align:left; }
+div.breadcrumbs { background:white url(/media/images/nav-bg-reverse.gif) 0 -10px repeat-x; padding:2px 8px 3px 8px; font-size:11px;  color:#999;  border-top:1px solid white; border-bottom:1px solid #ccc; text-align:left; }
 
 /* ACTION ICONS */
-.addlink { padding-left:12px; background:url(../img/admin/icon_addlink.gif) 0 .2em no-repeat; }
-.changelink { padding-left:12px; background:url(../img/admin/icon_changelink.gif) 0 .2em no-repeat; }
-.deletelink { padding-left:12px; background:url(../img/admin/icon_deletelink.gif) 0 .25em no-repeat; }
+.addlink { padding-left:12px; background:url(/media/images/icon_addlink.gif) 0 .2em no-repeat; }
+.changelink { padding-left:12px; background:url(/media/images/icon_changelink.gif) 0 .2em no-repeat; }
+.deletelink { padding-left:12px; background:url(/media/images/icon_deletelink.gif) 0 .25em no-repeat; }
 a.deletelink:link, a.deletelink:visited { color:#CC3434; }
 a.deletelink:hover { color:#993333; }
 
 /* OBJECT TOOLS */
 .object-tools { font-size:10px; font-weight:bold; font-family:Arial,Helvetica,sans-serif; padding-left:0; float:right; position:relative; margin-top:-2.4em; margin-bottom:-2em; }
 .form-row .object-tools { margin-top:5px; margin-bottom:5px; float:none; height:2em; padding-left:3.5em; }
-.object-tools li { display:block; float:left; background:url(../img/admin/tool-left.gif) 0 0 no-repeat; padding:0 0 0 8px; margin-left:2px; height:16px; }
-.object-tools li:hover { background:url(../img/admin/tool-left_over.gif) 0 0 no-repeat; }
-.object-tools a:link, .object-tools a:visited { display:block; float:left; color:white; padding:.1em 14px .1em 8px; height:14px; background:#999 url(../img/admin/tool-right.gif) 100% 0 no-repeat; }
-.object-tools a:hover, .object-tools li:hover a { background:#5b80b2 url(../img/admin/tool-right_over.gif) 100% 0 no-repeat; }
-.object-tools a.viewsitelink, .object-tools a.golink { background:#999 url(../img/admin/tooltag-arrowright.gif) top right no-repeat; padding-right:28px; }
-.object-tools a.viewsitelink:hover, .object-tools a.golink:hover { background:#5b80b2 url(../img/admin/tooltag-arrowright_over.gif) top right no-repeat; }
-.object-tools a.addlink { background:#999 url(../img/admin/tooltag-add.gif) top right no-repeat; padding-right:28px; }
-.object-tools a.addlink:hover { background:#5b80b2 url(../img/admin/tooltag-add_over.gif) top right no-repeat; }
+.object-tools li { display:block; float:left; background:url(/media/images/tool-left.gif) 0 0 no-repeat; padding:0 0 0 8px; margin-left:2px; height:16px; }
+.object-tools li:hover { background:url(/media/images/tool-left_over.gif) 0 0 no-repeat; }
+.object-tools a:link, .object-tools a:visited { display:block; float:left; color:white; padding:.1em 14px .1em 8px; height:14px; background:#999 url(/media/images/tool-right.gif) 100% 0 no-repeat; }
+.object-tools a:hover, .object-tools li:hover a { background:#5b80b2 url(/media/images/tool-right_over.gif) 100% 0 no-repeat; }
+.object-tools a.viewsitelink, .object-tools a.golink { background:#999 url(/media/images/tooltag-arrowright.gif) top right no-repeat; padding-right:28px; }
+.object-tools a.viewsitelink:hover, .object-tools a.golink:hover { background:#5b80b2 url(/media/images/tooltag-arrowright_over.gif) top right no-repeat; }
+.object-tools a.addlink { background:#999 url(/media/images/tooltag-add.gif) top right no-repeat; padding-right:28px; }
+.object-tools a.addlink:hover { background:#5b80b2 url(/media/images/tooltag-add_over.gif) top right no-repeat; }
 
 /* OBJECT HISTORY */
 table#change-history { width:100%; }

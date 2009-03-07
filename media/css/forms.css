@@ -37,18 +37,18 @@ form .wide p.help { padding-left:38px; }
 /* COLLAPSED FIELDSETS */
 fieldset.collapsed * { display:none; }
 fieldset.collapsed h2, fieldset.collapsed { display:block !important; }
-fieldset.collapsed h2 { background-image:url(../img/admin/nav-bg.gif); background-position:bottom left; color:#999; }
+fieldset.collapsed h2 { background-image:url(/media/images/nav-bg.gif); background-position:bottom left; color:#999; }
 fieldset.collapsed .collapse-toggle { padding:3px 5px !important; background:transparent; display:inline !important;}
 
 /* MONOSPACE TEXTAREAS */
 fieldset.monospace textarea { font-family:"Bitstream Vera Sans Mono",Monaco,"Courier New",Courier,monospace; }
 
 /* SUBMIT ROW */
-.submit-row { padding:5px 7px; text-align:right; background:white url(../img/admin/nav-bg.gif) 0 100% repeat-x; border:1px solid #ccc; margin:5px 0; overflow:hidden; }
+.submit-row { padding:5px 7px; text-align:right; background:white url(/media/images/nav-bg.gif) 0 100% repeat-x; border:1px solid #ccc; margin:5px 0; overflow:hidden; }
 .submit-row input { margin:0 0 0 5px; }
 .submit-row p { margin:0.3em; }
 .submit-row p.deletelink-box { float: left; }
-.submit-row .deletelink { background:url(../img/admin/icon_deletelink.gif) 0 50% no-repeat; padding-left:14px; }
+.submit-row .deletelink { background:url(/media/images/icon_deletelink.gif) 0 50% no-repeat; padding-left:14px; }
 
 /* CUSTOM FORM FIELDS */
 .vSelectMultipleField { vertical-align:top !important; }
@@ -67,7 +67,7 @@ fieldset.monospace textarea { font-family:"Bitstream Vera Sans Mono",Monaco,"Cou
 .inline-group .aligned label { width: 8em; }
 
 .inline-related {position:relative;}
-.inline-related h3 {margin: 0; color:#666; padding:3px 5px; font-size:11px; background:#e1e1e1 url(../img/admin/nav-bg.gif) top left repeat-x; border-bottom:1px solid #ddd;}
+.inline-related h3 {margin: 0; color:#666; padding:3px 5px; font-size:11px; background:#e1e1e1 url(/media/images/nav-bg.gif) top left repeat-x; border-bottom:1px solid #ddd;}
 .inline-related h3 span.delete {padding-left:20px; position:absolute; top:2px; right:10px;}
 .inline-related h3 span.delete label {margin-left:2px; font-size: 11px;}
 .inline-related fieldset {margin: 0; background:#fff; border: none; }
@@ -81,4 +81,4 @@ fieldset.monospace textarea { font-family:"Bitstream Vera Sans Mono",Monaco,"Cou
 .inline-group .tabular td.original p {position:absolute; left:0; height:1.1em; padding:2px 7px; overflow:hidden; font-size:9px; font-weight:bold; color:#666; _width:700px;     }
 .inline-group ul.tools {padding:0; margin: 0; list-style:none;}
 .inline-group ul.tools li {display:inline; padding:0 5px;}
-.inline-group ul.tools a.add {background:url(../img/admin/icon_addlink.gif) 0 50% no-repeat; padding-left:14px;}
+.inline-group ul.tools a.add {background:url(/media/images/icon_addlink.gif) 0 50% no-repeat; padding-left:14px;}

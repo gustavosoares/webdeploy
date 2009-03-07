@@ -13,6 +13,7 @@ from webfabric.models import Project_Configuration
 from webfabric.models import Template
 from webfabric.models import Template_Configuration
 from webfabric.models import Stage
+from webfabric.models import StageTable
 
 #create or list a project configuration
 def project_create_list(request, action='None', step=0):
@@ -111,6 +112,8 @@ def project_stage(request, project_id=0, step=0):
 						deploy_to = deploy_to_var,
 						project = p)
 				stage.save()
+				stage = Stage.objects.filter(project=project_id)
+				stage_table = StageTable(stage)
 				form = StageForm(None,initial={'name' : name_var,
 								'user' : user_var,
 								'hosts' : hosts_var,
@@ -120,15 +123,27 @@ def project_stage(request, project_id=0, step=0):
 							'project_name' : project_name,
 							'stage' : name_var, 
 							'project' : project_name, 
-							'project_id' : project_id})
+							'project_id' : project_id,
+							'stage_table' : stage_table})
 		else:
 			return HttpResponse("form is not valid")
 	else:
 		if step > 0:
 			project = Project.objects.filter(project=project_id).values_list()
 		else:
-			stage = project = Stage.objects.filter(project=project_id)
+			stage = Stage.objects.filter(project=project_id)
 			if stage:
+				#return HttpResponse("list stages")
+				stage_table = StageTable(stage)
+				form = StageForm(project_id)
+				p = Project.objects.filter(id=project_id)
+				project_name = p[0].name
+				return render_to_response('stage.html', {'action' : action, 
+							'form' : form, 
+							'project' : project_name,
+							'project_id' : project_id,
+							'stage_table' : stage_table})
+			else:
 				form = StageForm(project_id)
 				p = Project.objects.filter(id=project_id)
 				project_name = p[0].name
@@ -136,8 +151,7 @@ def project_stage(request, project_id=0, step=0):
 							'form' : form, 
 							'project' : project_name,
 							'project_id' : project_id})
-			else: #list projects
-				pass
+
 			
 			
 

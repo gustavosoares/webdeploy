@@ -22,15 +22,25 @@
 	</hr>
 	<h2><font color="red">Stage {{ stage }} for project {{ project_name }} created</font></h2></br>
     {% endif %}
-    {% if form_configuration %}
+    {% if stage_table %}
         </hr>
-        <h2>Project Configuration</h2></br>
-	<form action="/project/save/" method="POST">
-		<table>
-			{{ form_configuration.as_table }}
-		</table>
-		<p><input type="submit" value="Submit"></p>
-	</form>
+		<h2>Stage list</h2>
+	    <table>
+	    <tr>
+	        {% for column in stage_table.columns %}
+			<th>{{ column|lower }}</th>
+	        <!--th><a href="?sort={{ column.name }}">{{ column|lower  }}</a></th-->
+	        {% endfor %}
+	    </tr>
+	    {% for row in stage_table.rows %}
+	        <tr>
+	        {% for value in row %}
+	            <td>{{ value }}</td>
+	        {% endfor %}
+	        </tr>
+	    {% endfor %}
+	    </table>
+	
     {% endif %}
 
 {% endblock %}

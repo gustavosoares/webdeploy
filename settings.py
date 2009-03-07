@@ -20,8 +20,8 @@ DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysq
 DATABASE_NAME = 'deploy'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'             # Not used with sqlite3.
 #DATABASE_PASSWORD = ''         # Not used with sqlite3.
-#DATABASE_HOST = '/opt/local/var/run/mysql5/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_HOST = '/var/run/mysqld/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_HOST = '/opt/local/var/run/mysql5/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
+#DATABASE_HOST = '/var/run/mysqld/mysqld.sock'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = '3306'             # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
