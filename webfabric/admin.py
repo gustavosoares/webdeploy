@@ -22,8 +22,18 @@ class ProjectAdmin(admin.ModelAdmin):
 class Project_ConfigurationAdmin(admin.ModelAdmin):
 	pass
 
+class TasksAdmin(admin.ModelAdmin):
+	pass
+
+class Tasks_TemplateAdmin(admin.ModelAdmin):
+	list_display = ('name', 'description', 'file')
+	list_filter = ('name',)
+	ordering = ('-template',)
+	
 admin.site.register(Template, TemplateAdmin)
 admin.site.register(Template_Configuration, Template_ConfigurationAdmin)
 admin.site.register(Stage, StageAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Project_Configuration, Project_ConfigurationAdmin)
+admin.site.register(Tasks, TasksAdmin)
+admin.site.register(Tasks_Template, Tasks_TemplateAdmin)

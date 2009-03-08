@@ -16,15 +16,6 @@ class Template_Configuration(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.name)
 
-class Task_Template(models.Model):
-	name = models.CharField(max_length=50)
-	description = models.CharField(max_length=500)
-	file = models.CharField(max_length=255)
-	template = models.ForeignKey(Template)
-	
-	def __unicode__(self):
-		return u'%s' % (self.name)
-
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=200)
@@ -66,8 +57,17 @@ class StageTable(tables.ModelTable):
 class Tasks(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
-	file = models.CharField(max_length=255)
+	body = models.TextField()
 	project = models.ForeignKey(Project)
+
+	def __unicode__(self):
+		return u'%s' % (self.name)
+
+class Tasks_Template(models.Model):
+	name = models.CharField(max_length=50)
+	description = models.CharField(max_length=500)
+	file = models.CharField(max_length=255)
+	template = models.ForeignKey(Template)
 
 	def __unicode__(self):
 		return u'%s' % (self.name)

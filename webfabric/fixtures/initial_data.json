@@ -7,7 +7,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 1,
     "fields": {
       "name": "header",
@@ -17,7 +17,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 2,
     "fields": {
       "name": "deploy",
@@ -27,7 +27,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 3,
     "fields": {
       "name": "checkout",
@@ -37,7 +37,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 4,
     "fields": {
       "name": "restart",
@@ -47,7 +47,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 5,
     "fields": {
       "name": "stop",
@@ -57,7 +57,7 @@
     }
   },
   {
-    "model": "webfabric.task_template",
+    "model": "webfabric.tasks_template",
     "pk": 6,
     "fields": {
       "name": "start",
