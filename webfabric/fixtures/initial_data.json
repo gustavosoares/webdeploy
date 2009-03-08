@@ -12,7 +12,7 @@
     "fields": {
       "name": "header",
       "description" : "main definitions before the first task",
-      "file" : "tasks_template/django.header.py",
+      "file" : "django.header.py",
       "template" : 1
     }
   },
@@ -22,7 +22,7 @@
     "fields": {
       "name": "deploy",
       "description" : "deploy the project",
-      "file" : "tasks_template/django.deploy.py",
+      "file" : "django.deploy.py",
       "template" : 1
     }
   },
@@ -32,7 +32,7 @@
     "fields": {
       "name": "checkout",
       "description" : "checkout from the repository",
-      "file" : "tasks_template/django.checkout.py",
+      "file" : "django.checkout.py",
       "template" : 1
     }
   },
@@ -42,7 +42,7 @@
     "fields": {
       "name": "restart",
       "description" : "restart the webserver",
-      "file" : "tasks_template/django.restart.py",
+      "file" : "django.restart.py",
       "template" : 1
     }
   },
@@ -52,7 +52,7 @@
     "fields": {
       "name": "stop",
       "description" : "stop the webserver",
-      "file" : "tasks_template/django.stop.py",
+      "file" : "django.stop.py",
       "template" : 1
     }
   },
@@ -62,7 +62,7 @@
     "fields": {
       "name": "start",
       "description" : "start the webserver",
-      "file" : "tasks_template/django.start.py",
+      "file" : "django.start.py",
       "template" : 1
     }
   },

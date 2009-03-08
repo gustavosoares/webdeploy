@@ -4,7 +4,7 @@ import os
 path = os.path.dirname(__file__)
 
 TEMPLATE_DIRS = (os.path.abspath(path + '/templates'))
-TASKS_TEMPLATE_DIR = (os.path.abspath(path + '/tasks_template'))
+TASKS_TEMPLATE_DIR = (os.path.abspath(path + '/templates/tasks'))
 
 MEDIA_ROOT = (os.path.abspath(path + '/media'))
 
