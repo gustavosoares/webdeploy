@@ -35,8 +35,9 @@ def project_create_list(request, action='None', step=0):
 				p = Project(name=name, description=description, creation_date=creation_date,
 				creation_time=creation_time, template=template)
 				p.save()
+				print 'POST project create'
 				return HttpResponseRedirect('/project/create/%s' % p._get_pk_val())
-				#return render_to_response('project_create.html', {'action' : action, 'form' : form, 'step' : 1})
+
 		else:
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
