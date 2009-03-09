@@ -115,7 +115,13 @@ class TasksForm(forms.Form):
 										'deploy_to' : project['config.deploy_to'],
 										'appdjango' : project['config.appdjango'],
 										'releases_to_keep' : project['config.releases_days_to_keep']})
-				self.fields[id] = forms.CharField(label=name, 
+				self.fields['name_'+str(id)] = forms.CharField(label="name",
+								initial=name,
+								widget=forms.TextInput(attrs={'size':'20'}))
+				self.fields['description_'+str(id)] = forms.CharField(label="description",
+								initial=description,
+								widget=forms.TextInput(attrs={'size':'60'}))
+				self.fields['body_'+str(id)] = forms.CharField(label="body", 
 							initial=body,
 							widget=forms.Textarea(attrs={'rows':'20','cols':'100'}))
 		elif type(project_arg).__name__ == 'NoneType':
