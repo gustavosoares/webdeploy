@@ -1,7 +1,5 @@
 from django import forms
-from django.conf import settings
 from django.forms import ModelForm
-from django.template.loader import render_to_string
 from deploy.admin.widgets import AdminDateWidget
 from deploy.admin.widgets import AdminTimeWidget
 from deploy.webfabric.models import Template

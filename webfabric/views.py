@@ -2,7 +2,9 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django import forms
+from django.conf import settings
 from django.shortcuts import render_to_response
+from django.template.loader import render_to_string
 #FORMS
 from webfabric.forms import ProjectForm
 from webfabric.forms import Project_ConfigurationForm
@@ -201,22 +203,63 @@ def project_tasks(request, project_id=0, step=0):
 					else:
 						t_template = Tasks_Template.objects.filter(template=p[0].template_id)
 						p_configuration = Project_Configuration.objects.filter(project=project_id)
-						#TODO: Create a method to return this kind of dict
+						#TODO: Create a method to return this kind of dict mapping name to value pair from database tables
 						p_dict = {}
 						for x in xrange(len(p_configuration)):
 							p_dict[p_configuration[x].name] = p_configuration[x].value
 						print p_dict
-						form = TasksForm(t_template, p_dict)
-						return render_to_response('tasks.html', {'action' : action, 
-									'form' : form, 
-									'project_id' : project_id})	
-						#return HttpResponse("<h1>no task for project</h1>")
+						#saves tasks templates in the database for the respective project
+						task_template_dir = settings.TASKS_TEMPLATE_DIR
+						for x in xrange(len(t_template)):
+							id = t_template[x].id
+							name = t_template[x].name
+							description = t_template[x].description
+							file_ = t_template[x].file
+							template_file = task_template_dir + '/' + file_
+							print 'reading template file: %s' % template_file
+							f_template = None
+							body = None
+							try:
+								f_template = open(template_file, 'r')
+								body = f_template.read()
+								print 'done'
+							finally:
+								f_template.close()
+							#replace variables if header file
+							if name == 'header':
+								body = render_to_string('tasks/' + file_, { 'application_name' : p_dict['config.application'],
+										'default_tag' : p_dict['default_tag'],
+										'default_clone' : p_dict['default_clone'],
+										'deploy_to' : p_dict['config.deploy_to'],
+										'appdjango' : p_dict['config.appdjango'],
+										'releases_to_keep' : p_dict['config.releases_days_to_keep']})
+							#saves data in database
+							t_new = Tasks(name=name, description=description, body=body,
+							project=p)
+							t_new.save()
+						#form = TasksForm(t_template, p_dict)
+						#return render_to_response('tasks.html', {'action' : action, 
+									#'form' : form, 
+									#'project_id' : project_id})	
+						return HttpResponse("<h1>no task for project</h1>")
 				else:
 					return HttpResponse("<h1>Project does not exists!</h1>")
 			else:
 				return HttpResponse("<h1>You must create a stage before</h1>")
 			
 
+#saves a project configuration
+def project_tasks_save(request, project_id=0):
+	if request.method == 'POST':
+		for ids in request.POST.keys():
+			s = ids.split('_')
+			print 'name: %s - id: %s' % (s[0], s[1])
+			#value = request.POST[ids]
+			#print 'id: %s\n value: %s' % (ids, value)
+		#return HttpResponseRedirect(request.META['HTTP_REFERER'])
+		return HttpResponse("post task")
+	else:
+		return HttpResponse("configuration not commited")
 		
 #return a dict from a project form
 def read_form(form):
