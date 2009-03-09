@@ -26,7 +26,8 @@
 		<table>
 			{{ form_configuration.as_table }}
 		</table>
-		<p><input type="submit" value="Submit"></p>
+		<input type="submit" value="Submit">
+		<a href="/project/{{ project_id }}/stage" class="addlink">Add Stage</a>
 	</form>
     {% endif %}
 

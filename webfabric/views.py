@@ -41,7 +41,7 @@ def project_create_list(request, action='None', step=0):
 		else:
 			raise forms.ValidationError("form is invalid!!!") 
 	else:
-		if step > 0:
+		if step > 0: #list projects configurations
 			project = Project.objects.get(id=step)
 			form = ProjectForm(initial={'name' : project.name,
 				'description' : project.description,
@@ -65,7 +65,10 @@ def project_create_list(request, action='None', step=0):
 				p_configuration = Project_Configuration.objects.filter(project=step).values_list()
 			
 			form_configuration = Project_ConfigurationForm(p_configuration)
-			return render_to_response('project_create.html', {'action' : action, 'form' : form, 'form_configuration' : form_configuration})
+			return render_to_response('project_create.html', {'action' : action, 
+						'form' : form,
+						'project_id' : step, 
+						'form_configuration' : form_configuration})
 		else:
 			form = ProjectForm()
 			
