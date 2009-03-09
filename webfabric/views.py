@@ -234,8 +234,8 @@ def project_tasks(request, project_id=0, step=0):
 										'appdjango' : p_dict['config.appdjango'],
 										'releases_to_keep' : p_dict['config.releases_days_to_keep']})
 							#saves data in database
-							t_new = Tasks(name=name, description=description, body=body,
-							project=p)
+							project = Project.objects.get(id=project_id)
+							t_new = Tasks(name=name, description=description, body=body,project=project)
 							t_new.save()
 						#form = TasksForm(t_template, p_dict)
 						#return render_to_response('tasks.html', {'action' : action, 
