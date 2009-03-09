@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response
 from webfabric.forms import ProjectForm
 from webfabric.forms import Project_ConfigurationForm
 from webfabric.forms import StageForm
+from webfabric.forms import TasksForm
 #MODELS
 from webfabric.models import Project
 from webfabric.models import Project_Configuration
@@ -14,6 +15,8 @@ from webfabric.models import Template
 from webfabric.models import Template_Configuration
 from webfabric.models import Stage
 from webfabric.models import StageTable
+from webfabric.models import Tasks
+from webfabric.models import Tasks_Template
 
 #create or list a project configuration
 def project_create_list(request, action='None', step=0):
@@ -91,6 +94,7 @@ def project_save(request):
 #manage project stages
 def project_stage(request, project_id=0, step=0):
 	action = 'stage creation'
+	#POST
 	if request.method == 'POST':
 		form = StageForm(None, request.POST)
 		if form.is_valid():
@@ -131,6 +135,7 @@ def project_stage(request, project_id=0, step=0):
 							'stage_table' : stage_table})
 		else:
 			return HttpResponse("form is not valid")
+	#GET
 	else:
 		if step > 0:
 			project = Project.objects.filter(project=project_id).values_list()
@@ -148,15 +153,68 @@ def project_stage(request, project_id=0, step=0):
 							'project_id' : project_id,
 							'stage_table' : stage_table})
 			else:
-				form = StageForm(project_id)
 				p = Project.objects.filter(id=project_id)
-				project_name = p[0].name
-				return render_to_response('stage.html', {'action' : action, 
-							'form' : form, 
-							'project' : project_name,
-							'project_id' : project_id})
+				if p:
+					form = StageForm(project_id)
+					project_name = p[0].name
+					return render_to_response('stage.html', {'action' : action, 
+								'form' : form, 
+								'project' : project_name,
+								'project_id' : project_id})
+				else:
+					return HttpResponse('<h2>Project does not exists</h2>')
 
 			
+#manage project tasks
+def project_tasks(request, project_id=0, step=0):
+	action = 'tasks creation'
+	#POST
+	if request.method == 'POST':
+		form = TasksForm(None, None, request.POST)
+		if form.is_valid():
+			if s:
+				'''
+				form = StageForm(project_id)
+				return render_to_response('stage.html', {'action' : action, 
+							'form' : form, 
+							'error' : name_var, 
+							'project' : project_name, 
+							'project_id' : project_id})
+				'''
+				return HttpResponse("<h1>creating task</h1>")
+			else:
+				return HttpResponse("<h1>You must create a stage before</h1>")
+		else:
+			return HttpResponse("form is not valid")
+	#GET
+	else:
+		if step > 0:
+			project = Project.objects.filter(project=project_id).values_list()
+		else:
+			stage = Stage.objects.filter(project=project_id)
+			if stage:
+				p = Project.objects.filter(id=project_id)
+				if p:
+					t = Tasks.objects.filter(project=p)
+					if t:
+						return HttpResponse("<h1>task for project exists</h1>")
+					else:
+						t_template = Tasks_Template.objects.filter(template=p[0].template_id)
+						p_configuration = Project_Configuration.objects.filter(project=project_id)
+						#TODO: Create a method to return this kind of dict
+						p_dict = {}
+						for x in xrange(len(p_configuration)):
+							p_dict[p_configuration[x].name] = p_configuration[x].value
+						print p_dict
+						form = TasksForm(t_template, p_dict)
+						return render_to_response('tasks.html', {'action' : action, 
+									'form' : form, 
+									'project_id' : project_id})	
+						#return HttpResponse("<h1>no task for project</h1>")
+				else:
+					return HttpResponse("<h1>Project does not exists!</h1>")
+			else:
+				return HttpResponse("<h1>You must create a stage before</h1>")
 			
 
 		

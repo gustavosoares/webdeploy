@@ -1,5 +1,7 @@
 from django import forms
+from django.conf import settings
 from django.forms import ModelForm
+from django.template.loader import render_to_string
 from deploy.admin.widgets import AdminDateWidget
 from deploy.admin.widgets import AdminTimeWidget
 from deploy.webfabric.models import Template
@@ -80,4 +82,44 @@ class StageForm(forms.Form):
 			self.fields['hosts']= forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
 			self.fields['deploy_to'] = forms.CharField(label="config.deploy_to", 
 								widget=forms.TextInput(attrs={'size':'60'}))
+'''
+Method for generating the task form. It may receive 2 arguments. A queryset, which retrieved from the tasks_template tables
+and the other one is a dict with a key-value pair from the values obtained from the project_configuration tables. This two
+arguments are just used when there is no task creates for the project_id received, this means, only on the first time.
+'''
+class TasksForm(forms.Form):
+	def __init__(self, obj = None, project = None, *args, **kwargs):
+		super(TasksForm, self).__init__(*args, **kwargs)	
+		if type(obj).__name__ == 'QuerySet':
+			task_template_dir = settings.TASKS_TEMPLATE_DIR
+			for x in xrange(len(obj)):
+				id = obj[x].id
+				name = obj[x].name
+				description = obj[x].description
+				file_ = obj[x].file
+				template_file = task_template_dir + '/' + file_
+				print 'reading template file: %s' % template_file
+				f_template = None
+				body = None
+				try:
+					f_template = open(template_file, 'r')
+					body = f_template.read()
+					print 'done'
+				finally:
+					f_template.close()
+				#replace variables if header file
+				if name == 'header':
+					body = render_to_string('tasks/' + file_, { 'application_name' : project['config.application'],
+										'default_tag' : project['default_tag'],
+										'default_clone' : project['default_clone'],
+										'deploy_to' : project['config.deploy_to'],
+										'appdjango' : project['config.appdjango'],
+										'releases_to_keep' : project['config.releases_days_to_keep']})
+				self.fields[id] = forms.CharField(label=name, 
+							initial=body,
+							widget=forms.Textarea(attrs={'rows':'20','cols':'100'}))
+		elif type(project_arg).__name__ == 'NoneType':
+			self.fields['name'] = forms.CharField(label="name")
+			self.fields['description'] = forms.CharField(label="description", widget=forms.TextInput(attrs={'size':'60'}))
+			self.fields['body']= forms.TextField()
 

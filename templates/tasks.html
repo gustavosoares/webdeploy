@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}WebFabric - Tasks Creation{% endblock %}
+
+
+{% block content %}
+    <!-- Insert your content here -->
+    {% if error %}
+    	<h2><font color="red">Task {{ error }} already exists!!!</font></h2></br>
+    {% endif %}
+    
+    {% if form %}
+    <h2>Stage Creation : {{ project }}</h2></br>
+	<form action="/project/{{ project_id }}/tasks" method="POST">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+    {% endif %}
+    {% if stage %}
+	</hr>
+	<h2><font color="red">Stage {{ stage }} for project {{ project_name }} created</font></h2></br>
+    {% endif %}
+    {% if table %}
+        </hr>
+		<h2>Tasks list</h2>
+	    <table>
+	    <tr>
+	        {% for column in table.columns %}
+			<th>{{ column|lower }}</th>
+	        <!--th><a href="?sort={{ column.name }}">{{ column|lower  }}</a></th-->
+	        {% endfor %}
+	    </tr>
+	    {% for row in table.rows %}
+	        <tr>
+	        {% for value in row %}
+	            <td>{{ value }}</td>
+	        {% endfor %}
+	        </tr>
+	    {% endfor %}
+	    </table>
+	
+    {% endif %}
+
+{% endblock %}
