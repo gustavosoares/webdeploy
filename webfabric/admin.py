@@ -37,3 +37,4 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Project_Configuration, Project_ConfigurationAdmin)
 admin.site.register(Tasks, TasksAdmin)
 admin.site.register(Tasks_Template, Tasks_TemplateAdmin)
+
