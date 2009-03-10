@@ -86,33 +86,14 @@ and the other one is a dict with a key-value pair from the values obtained from 
 arguments are just used when there is no task creates for the project_id received, this means, only on the first time.
 '''
 class TasksForm(forms.Form):
-	def __init__(self, obj = None, project = None, *args, **kwargs):
+	def __init__(self, obj = None, *args, **kwargs):
 		super(TasksForm, self).__init__(*args, **kwargs)	
 		if type(obj).__name__ == 'QuerySet':
-			task_template_dir = settings.TASKS_TEMPLATE_DIR
 			for x in xrange(len(obj)):
 				id = obj[x].id
 				name = obj[x].name
 				description = obj[x].description
-				file_ = obj[x].file
-				template_file = task_template_dir + '/' + file_
-				print 'reading template file: %s' % template_file
-				f_template = None
-				body = None
-				try:
-					f_template = open(template_file, 'r')
-					body = f_template.read()
-					print 'done'
-				finally:
-					f_template.close()
-				#replace variables if header file
-				if name == 'header':
-					body = render_to_string('tasks/' + file_, { 'application_name' : project['config.application'],
-										'default_tag' : project['default_tag'],
-										'default_clone' : project['default_clone'],
-										'deploy_to' : project['config.deploy_to'],
-										'appdjango' : project['config.appdjango'],
-										'releases_to_keep' : project['config.releases_days_to_keep']})
+				body = obj[x].body
 				self.fields['name_'+str(id)] = forms.CharField(label="name",
 								initial=name,
 								widget=forms.TextInput(attrs={'size':'20'}))

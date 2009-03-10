@@ -10,7 +10,7 @@
     {% endif %}
     
     {% if form %}
-    <h2>Stage Creation : {{ project }}</h2></br>
+    <h2>Task Creation : <font color="red">{{ project }}</font></h2></br>
 	<form action="/project/{{ project_id }}/tasks/save" method="POST">
 		<table>
 			{{ form.as_table }}

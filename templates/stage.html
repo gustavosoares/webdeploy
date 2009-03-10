@@ -23,7 +23,7 @@
 	<h2><font color="red">Stage {{ stage }} for project {{ project_name }} created</font></h2></br>
     {% endif %}
     {% if stage_table %}
-        </hr>
+        <hr>
 		<h2>Stage list</h2>
 	    <table>
 	    <tr>
@@ -40,7 +40,8 @@
 	        </tr>
 	    {% endfor %}
 	    </table>
-	
+		<hr><br>
+		<p><a href="/project/{{ project_id }}/tasks/" class="addlink">Add Task</a></p>
     {% endif %}
 
 {% endblock %}

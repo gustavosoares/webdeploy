@@ -15,6 +15,3 @@ Description of the urls
 - create a stage configuration for PROJECT_ID
 
 
-TODO:
-
-salvar templates de tasks na tabela de tasks para cada projeto
