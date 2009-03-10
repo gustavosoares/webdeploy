@@ -102,7 +102,7 @@ class TasksForm(forms.Form):
 								widget=forms.TextInput(attrs={'size':'60'}))
 				self.fields['body_'+str(id)] = forms.CharField(label="body", 
 							initial=body,
-							widget=forms.Textarea(attrs={'rows':'20','cols':'100'}))
+							widget=forms.Textarea(attrs={'rows':'20','cols':'100','class':'brush: python'}))
 		elif type(project_arg).__name__ == 'NoneType':
 			self.fields['name'] = forms.CharField(label="name")
 			self.fields['description'] = forms.CharField(label="description", widget=forms.TextInput(attrs={'size':'60'}))

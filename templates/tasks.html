@@ -18,6 +18,35 @@
 		<p><input type="submit" value="Submit"></p>
 	</form>
     {% endif %}
+    <pre class="brush: python">
+		import os
+		import shutil
+		import datetime
+
+		#CONFIGS
+		config.application = 'publicacao-admin'
+		config.tag = ''
+		config.clone_name = ''
+
+		if len(config.tag) == 0:
+		  config.tag = 'master'
+
+		if len(config.clone_name) == 0:
+		  config.clone_name = 'mainline'
+
+		config.checkout_dir =  "/tmp/%s_checkedout/%s" % (config.application, config.tag)
+		config.repository = "git://git.globoi.com/%s/%s.git" % (config.application, config.clone_name)
+
+		config.deploy_to = '/usr/local/glbdjango'
+		config.appdjango = 'admin'
+		config.time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+		config.current_path = '%s/%s' % (config.deploy_to, config.appdjango)
+		config.release_path = '%s/releases/%s/%s' % (config.deploy_to, config.appdjango, config.time)
+		config.shared_path = '%s/shared/%s' % (config.deploy_to, config.appdjango)
+		config.filename = '/tmp/%s.tar.gz' % config.time
+		config.releases_days_to_keep = '4'
+	
+	</pre>
     {% if stage %}
 	</hr>
 	<h2><font color="red">Stage {{ stage }} for project {{ project_name }} created</font></h2></br>

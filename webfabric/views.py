@@ -238,6 +238,7 @@ def project_tasks_save(request, project_id=0):
 		tasks = Tasks.objects.filter(project=project_id)
 		for id in xrange(len(tasks)):
 			id_aux = id + 1
+			#TODO: check if the 3 keys exists, if not update just that register
 			name = request.POST['name_'+str(id_aux)]
 			description = request.POST['description_'+str(id_aux)]
 			body = request.POST['body_'+str(id_aux)]
