@@ -224,7 +224,7 @@ def project_tasks(request, project_id=0, step=0):
 						project = Project.objects.get(id=project_id)
 						t_new = Tasks(name=name, description=description, body=body,project=project)
 						t_new.save()
-					return HttpResponse("<h1>no task for project</h1>")
+					return HttpResponseRedirect(request.META['HTTP_REFERER'])
 			else:
 				return HttpResponse("<h1>Project does not exists!</h1>")
 		else:
