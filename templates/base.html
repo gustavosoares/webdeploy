@@ -13,18 +13,13 @@
 	<script src="/media/js/calendar.js"></script>
 	<script src="/media/js/admin/DateTimeShortcuts.js" type="text/javascript"></script>
 	
-	<script type="text/javascript" src="/media/js/shCore.js"></script>
-	<script type="text/javascript" src="/media/js/shBrushPython.js"></script>
-	<script type="text/javascript">
-		SyntaxHighlighter.all();
-	</script>
-
 	<link rel="stylesheet" type="text/css" href="/media/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="/media/css/forms.css" />
 	<link rel="stylesheet" type="text/css" href="/media/css/widgets.css" />
-	
-	<link type="text/css" rel="stylesheet" href="/media/css/shCore.css" />
-	<link type="text/css" rel="stylesheet" href="/media/css/shThemeDefault.css" />
+
+	{% block stylesheet %}{% endblock %}
+	{% block javascript %}{% endblock %}
+
     <!--link href="/media/css/application.css" media="screen" rel="stylesheet" type="text/css" /-->
 </head>
 <body>
