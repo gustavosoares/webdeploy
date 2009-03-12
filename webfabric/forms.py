@@ -18,11 +18,25 @@ class ProjectForm(forms.Form):
 	#my_field = ChoiceField(choices=[(1, 1), (2, 2)], initial=1) 
 	template = forms.ChoiceField(choices=template_list)
 
-'''
-class Project_ConfigurationForm(ModelForm):
-	class Meta:
-		model = Project_Configuration
-'''
+class Project_ManageForm(forms.Form):
+
+	def __init__(self, stage_choices=None, tasks_choices=None, *args, **kwargs):
+		super(Project_ManageForm, self).__init__(*args, **kwargs)
+		if stage_choices:
+			#stage = forms.ChoiceField(choices=stage_choice)
+			self.fields['stage'] = forms.ChoiceField(label='stage', 
+							choices=stage_choices)
+		else:	
+			self.fields['stage'] = forms.ChoiceField(label='stage')
+		
+		if tasks_choices:
+			self.fields['tasks'] = forms.ChoiceField(label='tasks', 
+							choices=tasks_choice)
+		else:
+			self.fields['tasks'] = forms.ChoiceField(label='tasks')
+
+	#stage = forms.ChoiceField()
+	#tasks = forms.ChoiceField()
 
 
 class Project_ConfigurationForm(forms.Form):

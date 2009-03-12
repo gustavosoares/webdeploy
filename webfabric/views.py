@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 #FORMS
 from webfabric.forms import ProjectForm
 from webfabric.forms import Project_ConfigurationForm
+from webfabric.forms import Project_ManageForm
 from webfabric.forms import StageForm
 from webfabric.forms import FabfileForm
 #MODELS
@@ -252,12 +253,18 @@ def project_fabfile_view(request, project_id=0):
 def project_manage(request, project_id=0):
 	if request.method == 'GET':
 		#TODO: cache on memcache
+		project = Project.objects.get(id=project_id)
 		fabfile = Fabfile.objects.get(project=project_id)
 		stage = Stage.objects.filter(project=project_id).values_list()
 		STAGE_LIST = []
 		for x in xrange(len(stage)):
 			STAGE_LIST.append(stage[x][0:2])
 		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
+		form = Project_ManageForm(STAGE_LIST,None)
+		
+		return render_to_response('project_manage.html', {'form' : form, 
+														'project_id' : project_id,
+														'project' : project.name})
 		return HttpResponse("manage")
 	else:
 		return HttpResponse("not a GET")
