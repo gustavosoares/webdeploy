@@ -10,12 +10,12 @@
     {% endif %}
     
     {% if form %}
-    <h2>Stage Creation : {{ project }}</h2></br>
+    <h2>Stage Creation : <font color="red">{{ project }}</font></h2></br>
 	<form action="/project/{{ project_id }}/stage" method="POST">
 		<table>
 			{{ form.as_table }}
 		</table>
-		<p><input type="submit" value="Submit"></p>
+		<p><input type="submit" value="save"></p>
 	</form>
     {% endif %}
     {% if stage %}
@@ -41,7 +41,7 @@
 	    {% endfor %}
 	    </table>
 		<hr><br>
-		<p><a href="/project/{{ project_id }}/tasks/" class="addlink">Add Task</a></p>
+		<p><a href="/project/{{ project_id }}/tasks/" class="addlink">Configure fabfile</a></p>
     {% endif %}
 
 {% endblock %}

@@ -25,7 +25,12 @@ class Project_ConfigurationAdmin(admin.ModelAdmin):
 class TasksAdmin(admin.ModelAdmin):
 	pass
 
-class Tasks_TemplateAdmin(admin.ModelAdmin):
+class FabfileAdmin(admin.ModelAdmin):
+	list_display = ('name',)
+	list_filter = ('name',)
+	ordering = ('-name',)
+	
+class Fabfile_TemplateAdmin(admin.ModelAdmin):
 	list_display = ('name', 'description', 'file')
 	list_filter = ('name',)
 	ordering = ('-template',)
@@ -36,5 +41,6 @@ admin.site.register(Stage, StageAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Project_Configuration, Project_ConfigurationAdmin)
 admin.site.register(Tasks, TasksAdmin)
-admin.site.register(Tasks_Template, Tasks_TemplateAdmin)
+admin.site.register(Fabfile_Template, Fabfile_TemplateAdmin)
+admin.site.register(Fabfile, FabfileAdmin)
 

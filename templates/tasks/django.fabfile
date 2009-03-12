@@ -1,0 +1,113 @@
+import os
+import shutil
+import datetime
+
+#CONFIGS
+config.application = '{{ application_name }}'
+config.tag = ''
+config.clone_name = ''
+
+if len(config.tag) == 0:
+  config.tag = '{{ default_tag }}'
+
+if len(config.clone_name) == 0:
+  config.clone_name = '{{ default_clone }}'
+
+config.checkout_dir =  "/tmp/%s_checkedout/%s" % (config.application, config.tag)
+config.repository = "git://git.globoi.com/%s/%s.git" % (config.application, config.clone_name)
+
+config.deploy_to = '{{ deploy_to }}'
+config.appdjango = '{{ appdjango }}'
+config.time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+config.current_path = '%s/%s' % (config.deploy_to, config.appdjango)
+config.release_path = '%s/releases/%s/%s' % (config.deploy_to, config.appdjango, config.time)
+config.shared_path = '%s/shared/%s' % (config.deploy_to, config.appdjango)
+config.filename = '/tmp/%s.tar.gz' % config.time
+config.releases_days_to_keep = '{{ releases_to_keep }}'
+
+def checkout():
+	"Compiles, builds and packages our project locally."
+	print("iniciando o checkout")
+	if os.path.exists('%s' % config.checkout_dir):
+	  shutil.rmtree('%s' % config.checkout_dir)
+	  print('diretorio %s antigo apagado' % config.checkout_dir)
+
+	local('mkdir -p %s' % config.checkout_dir)
+	print('Fazendo checkout do git')
+	#GIT
+	cmd = """
+	git clone $(repository) $(checkout_dir)/$(application) &&
+	cd $(checkout_dir)/$(application) &&
+	git checkout $(tag)
+	"""
+	local(cmd)
+
+	print('*' * 60)
+	cmd = """
+	cd $(checkout_dir) &&
+	pwd &&
+	rm -rf config Capfile &&
+	cd src &&
+	cd delivery &&
+	rm -rf __init__.py &&
+	rm -rf setup.py &&
+	cp -rp delivery/* . &&
+	rm -rf delivery &&
+	cd - &&
+	for dir in `ls`; do touch $dir/$(tag).tag; done &&
+	tar cvfz $(filename) *
+	"""
+	local(cmd)
+
+def deploy():
+	"Deploy do projeto para os ambientes"
+	print('JAVA_HOME: %s'% os.environ['JAVA_HOME'])
+	print('checkout_dir: %s' % config.checkout_dir)
+	print('')
+	print("tag: %s" % config.tag)
+	print("clone_name: %s"  % config.clone_name)
+	print("repository: %s" % config.repository)
+	print('*' * 60)
+	invoke(checkout)
+	print('*' * 60)
+	print("deploy_to: %s" % config.deploy_to)
+	print('current_path: %s' % config.current_path)
+	print('release_path: %s' % config.release_path)
+	print('shared_path: %s' % config.shared_path)
+	print('*' * 60)
+	put('%s' % config.filename, '%s' % config.filename)
+	print('tar.gz enviado')
+	print('apagando o temporario %s' % config.filename)
+	local('rm -rf %s' % config.filename)
+	print('done')
+	cmd = """
+	mkdir -p $(release_path) &&
+	cd $(release_path) &&
+	tar xvzf $(filename) &&
+	for dir in `ls`; do rm -rf $(deploy_to)/$dir > /dev/null; done &&
+	cd $(deploy_to) && 
+	tar xvzf $(filename) && 
+	rm $(filename) && 
+	cd $(release_path) && 
+	cp -rp * $(current_path)/ && 
+	rm -rf $(filename) &&
+	cd $(deploy_to)/ &&
+	rm -rf pubclient > /dev/null &&
+	ln -s delivery/pubclient
+	"""
+	run(cmd)
+	invoke(restart)
+
+def restart():
+	"Restart do webserver"
+	print('Dando graceful no apache')
+	run("sudo /usr/local/httpd-2.2/bin/apachectl graceful")
+	print('graceful feito')
+
+def start():
+	"Start do webserver"
+	run("sudo /usr/local/httpd-2.2/bin/apachectl start")
+
+def stop():
+	"Stop do webserver"
+	run("sudo /usr/local/httpd-2.2/bin/apachectl stop")

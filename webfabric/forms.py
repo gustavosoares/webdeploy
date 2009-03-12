@@ -43,68 +43,15 @@ class Project_ConfigurationForm(forms.Form):
 							widget=forms.TextInput(attrs={'size':'60'})
 							)
 
-
-class Create_StageForm(forms.Form):
+class StageForm(forms.Form):
 	name = forms.CharField(label="name")
 	user = forms.CharField(label="config.fab_user", widget=forms.TextInput(attrs={'size':'60'}))
 	hosts = forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
 	deploy_to = forms.CharField(label="config.deploy_to", widget=forms.TextInput(attrs={'size':'60'}))
 
-class StageForm(forms.Form):
-	def __init__(self, project_arg = None, *args, **kwargs):
-		super(StageForm, self).__init__(*args, **kwargs)	
-		if type(project_arg).__name__ == 'ValuesListQuerySet':
-			stage = Stage.objects.filter(project=project_arg).values_list()
-			for s_item in stage:
-				s_aux = s_item
-				id = s_aux[0]
-				name = s_aux[1]
-				user = s_aux[2]
-				hosts = s_aux[3]
-				deploy_to = s_aux[4]
-				self.fields[id] = forms.CharField(label=name, 
-							initial=value,
-							widget=forms.TextInput(attrs={'size':'60'})
-							)
-		elif type(project_arg).__name__ == 'unicode':
-			p_configuration = Project_Configuration.objects.filter(project=project_arg, name='config.deploy_to')
-			self.fields['name'] = forms.CharField(label="name")
-			self.fields['user'] = forms.CharField(label="config.fab_user", widget=forms.TextInput(attrs={'size':'60'}))
-			self.fields['hosts']= forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
-			self.fields['deploy_to'] = forms.CharField(label="config.deploy_to", 
-								widget=forms.TextInput(attrs={'size':'60'}),
-								initial=p_configuration[0].value)
-		elif type(project_arg).__name__ == 'NoneType':
-			self.fields['name'] = forms.CharField(label="name")
-			self.fields['user'] = forms.CharField(label="config.fab_user", widget=forms.TextInput(attrs={'size':'60'}))
-			self.fields['hosts']= forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
-			self.fields['deploy_to'] = forms.CharField(label="config.deploy_to", 
-								widget=forms.TextInput(attrs={'size':'60'}))
-'''
-Method for generating the task form. It may receive 2 arguments. A queryset, which retrieved from the tasks_template tables
-and the other one is a dict with a key-value pair from the values obtained from the project_configuration tables. This two
-arguments are just used when there is no task creates for the project_id received, this means, only on the first time.
-'''
-class TasksForm(forms.Form):
-	def __init__(self, obj = None, *args, **kwargs):
-		super(TasksForm, self).__init__(*args, **kwargs)	
-		if type(obj).__name__ == 'QuerySet':
-			for x in xrange(len(obj)):
-				id = obj[x].id
-				name = obj[x].name
-				description = obj[x].description
-				body = obj[x].body
-				self.fields['name_'+str(id)] = forms.CharField(label="name",
-								initial=name,
-								widget=forms.TextInput(attrs={'size':'20'}))
-				self.fields['description_'+str(id)] = forms.CharField(label="description",
-								initial=description,
-								widget=forms.TextInput(attrs={'size':'60'}))
-				self.fields['body_'+str(id)] = forms.CharField(label="body", 
-							initial=body,
-							widget=forms.Textarea(attrs={'rows':'20','cols':'100','class':'brush: python'}))
-		elif type(project_arg).__name__ == 'NoneType':
-			self.fields['name'] = forms.CharField(label="name")
-			self.fields['description'] = forms.CharField(label="description", widget=forms.TextInput(attrs={'size':'60'}))
-			self.fields['body']= forms.TextField()
+class FabfileForm(forms.Form):
+	name = forms.CharField()
+	fabfile = forms.CharField(widget=forms.Textarea(attrs={'rows':'130','cols':'100'}))
+	project_id = forms.CharField(widget=forms.HiddenInput()) 
+
 

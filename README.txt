@@ -1,4 +1,8 @@
 
+######################
+# Urls description
+######################
+
 Description of the urls
 
 /project/create
@@ -14,4 +18,10 @@ Description of the urls
 
 - create a stage configuration for PROJECT_ID
 
+##############
+# Database
+##############
 
+To generate initial data and create de tables on the database run the following command:
+
+python manage.py syncdb

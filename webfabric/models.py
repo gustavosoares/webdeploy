@@ -57,13 +57,20 @@ class StageTable(tables.ModelTable):
 class Tasks(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
-	body = models.TextField()
 	project = models.ForeignKey(Project)
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
 
-class Tasks_Template(models.Model):
+class Fabfile(models.Model):
+	name = models.CharField(max_length=100)
+	body = models.TextField()
+	project = models.ForeignKey(Project)
+	
+	def __unicode__(self):
+		return u'%s' % (self.name)
+		
+class Fabfile_Template(models.Model):
 	name = models.CharField(max_length=50)
 	description = models.CharField(max_length=500)
 	file = models.CharField(max_length=255)

@@ -7,62 +7,12 @@
     }
   },
   {
-    "model": "webfabric.tasks_template",
+    "model": "webfabric.fabfile_template",
     "pk": 1,
     "fields": {
-      "name": "header",
-      "description" : "main definitions before the first task",
-      "file" : "django.header.py",
-      "template" : 1
-    }
-  },
-  {
-    "model": "webfabric.tasks_template",
-    "pk": 2,
-    "fields": {
-      "name": "deploy",
-      "description" : "deploy the project",
-      "file" : "django.deploy.py",
-      "template" : 1
-    }
-  },
-  {
-    "model": "webfabric.tasks_template",
-    "pk": 3,
-    "fields": {
-      "name": "checkout",
-      "description" : "checkout from the repository",
-      "file" : "django.checkout.py",
-      "template" : 1
-    }
-  },
-  {
-    "model": "webfabric.tasks_template",
-    "pk": 4,
-    "fields": {
-      "name": "restart",
-      "description" : "restart the webserver",
-      "file" : "django.restart.py",
-      "template" : 1
-    }
-  },
-  {
-    "model": "webfabric.tasks_template",
-    "pk": 5,
-    "fields": {
-      "name": "stop",
-      "description" : "stop the webserver",
-      "file" : "django.stop.py",
-      "template" : 1
-    }
-  },
-  {
-    "model": "webfabric.tasks_template",
-    "pk": 6,
-    "fields": {
-      "name": "start",
-      "description" : "start the webserver",
-      "file" : "django.start.py",
+      "name": "django",
+      "description" : "django fabfile template",
+      "file" : "django.fabfile",
       "template" : 1
     }
   },
@@ -106,15 +56,6 @@
     "model": "webfabric.template_configuration",
     "pk": 5,
     "fields": {
-      "name": "config.checkout_dir",
-      "value": "/tmp/",
-      "template": 1
-    }
-  },
-    {
-    "model": "webfabric.template_configuration",
-    "pk": 6,
-    "fields": {
       "name": "config.deploy_to",
       "value": "/usr/local/glbdjango",
       "template": 1
@@ -122,7 +63,7 @@
   },
     {
     "model": "webfabric.template_configuration",
-    "pk": 7,
+    "pk": 6,
     "fields": {
       "name": "config.appdjango",
       "value": "[aplicacao django]",
@@ -131,7 +72,7 @@
   },
     {
     "model": "webfabric.template_configuration",
-    "pk": 8,
+    "pk": 7,
     "fields": {
       "name": "config.releases_days_to_keep",
       "value": "4",
