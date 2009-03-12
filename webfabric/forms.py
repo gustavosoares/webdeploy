@@ -15,6 +15,7 @@ class ProjectForm(forms.Form):
 	creation_time = forms.CharField(widget=AdminTimeWidget())
 	#retorna array com tuplas
 	template_list = Template.objects.all().values_list()
+	#my_field = ChoiceField(choices=[(1, 1), (2, 2)], initial=1) 
 	template = forms.ChoiceField(choices=template_list)
 
 '''

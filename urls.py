@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
     (r'^project/save/?$', project_save),
+    (r'^project/(?P<project_id>\d+)/manage/?$', project_manage),
     (r'^project/(?P<project_id>\d+)/stage/?$', project_stage),
     (r'^project/(?P<project_id>\d+)/fabfile/?$', project_fabfile),
     (r'^project/(?P<project_id>\d+)/fabfile/view/?$', project_fabfile_view),

@@ -97,7 +97,7 @@ def project_save(request):
 def project_stage(request, project_id=0, step=0):
 	#POST
 	if request.method == 'POST':
-		form = StageForm(None, request.POST)
+		form = StageForm(request.POST)
 		if form.is_valid():
 			name_var = request.POST['name']
 			s = Stage.objects.filter(project=project_id, name=name_var)
@@ -243,11 +243,25 @@ def project_fabfile_save(request, project_id=0):
 #view the fabfile with syntax highlight
 def project_fabfile_view(request, project_id=0):
 	if request.method == 'GET':
-		fabfile = Fabfile.objects.get(id=project_id)
+		fabfile = Fabfile.objects.get(project=project_id)
 		return render_to_response('fabfile.html', {'fabfile' : fabfile.body})
 	else:
 		return HttpResponse("not a GET")
 
+#view the fabfile with syntax highlight
+def project_manage(request, project_id=0):
+	if request.method == 'GET':
+		#TODO: cache on memcache
+		fabfile = Fabfile.objects.get(project=project_id)
+		stage = Stage.objects.filter(project=project_id).values_list()
+		STAGE_LIST = []
+		for x in xrange(len(stage)):
+			STAGE_LIST.append(stage[x][0:2])
+		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
+		return HttpResponse("manage")
+	else:
+		return HttpResponse("not a GET")
+		
 #return a dict from a project form
 def read_form(form):
 	name = form.cleaned_data['name']
