@@ -251,23 +251,91 @@ def project_fabfile_view(request, project_id=0):
 
 #view the fabfile with syntax highlight
 def project_manage(request, project_id=0):
+	#GET
 	if request.method == 'GET':
 		#TODO: cache on memcache
 		project = Project.objects.get(id=project_id)
 		fabfile = Fabfile.objects.get(project=project_id)
 		stage = Stage.objects.filter(project=project_id).values_list()
 		STAGE_LIST = []
+		TASKS_LIST = []
 		for x in xrange(len(stage)):
 			STAGE_LIST.append(stage[x][0:2])
 		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
-		form = Project_ManageForm(STAGE_LIST,None)
+		#get tasks from fabfile
+		#TODO: cache this
+		fabfile_body = fabfile.body
+		lines = fabfile_body.splitlines()
+		i = 0
+		for line in lines:
+			line = line.strip()
+			if line.startswith('def '):
+				j = line.find('(')
+				task_name = line[4:j]
+				tupla = (task_name, task_name)
+				TASKS_LIST.append(tupla)
+				#print '%d - %s' % (i,task_name)
+			i = i + 1
+		print 'tasks for project_id %s: %s' % (project_id, TASKS_LIST)
 		
+		form = Project_ManageForm(STAGE_LIST,TASKS_LIST,initial={'project_id' : project_id})
 		return render_to_response('project_manage.html', {'form' : form, 
 														'project_id' : project_id,
 														'project' : project.name})
-		return HttpResponse("manage")
+	#POST
+	elif request.method == 'POST':
+		print 'POST received for project_id %s: %s' % (project_id, request.POST)
+		task = request.POST['task']
+		stage_id = request.POST['stage']
+		print 'task: %s' % task
+		print 'stage_id: %s' % stage_id
+		stage = Stage.objects.get(id=stage_id)
+		lista_hosts = []
+		for h in str(stage.hosts).split(','):
+			lista_hosts.append(str(h))
+		print str(lista_hosts)
+		task_description = 'stage %s' % stage.name
+		#task created acording the specified stage
+		stage_task = render_to_string('tasks/stage.fabfile', {'task_name' : stage.name,
+															'task_description' : task_description,
+															'lista_hosts' : lista_hosts,
+															'fab_user' : stage.user,
+															'deploy_to' : stage.deploy_to})
+		print 'stage task: '
+		print stage_task
+		print ''
+		##################################
+		# render the form the way it was
+		#################################
+		project = Project.objects.get(id=project_id)
+		fabfile = Fabfile.objects.get(project=project_id)
+		stage = Stage.objects.filter(project=project_id).values_list()
+		STAGE_LIST = []
+		TASKS_LIST = []
+		for x in xrange(len(stage)):
+			STAGE_LIST.append(stage[x][0:2])
+		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
+		#get tasks from fabfile
+		fabfile_body = fabfile.body
+		lines = fabfile_body.splitlines()
+		i = 0
+		for line in lines:
+			line = line.strip()
+			if line.startswith('def '):
+				j = line.find('(')
+				task_name = line[4:j]
+				tupla = (task_name, task_name)
+				TASKS_LIST.append(tupla)
+				#print '%d - %s' % (i,task_name)
+			i = i + 1
+		form = Project_ManageForm(STAGE_LIST,TASKS_LIST,initial={'stage' : stage_id, 'task' : task})
+		return render_to_response('project_manage.html', {'form' : form, 
+														'project_id' : project_id,
+														'project' : project.name,
+														'result' : 1})
+		return HttpResponse("POST")
 	else:
-		return HttpResponse("not a GET")
+		return HttpResponse("only POST and GET are accepted")
 		
 #return a dict from a project form
 def read_form(form):

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}WebFabric - Project Management{% endblock %}
+
+{% block stylesheet %}
+	<link type="text/css" rel="stylesheet" href="/media/css/shCore.css" />
+	<link type="text/css" rel="stylesheet" href="/media/css/shThemeDefault.css" />
+{% endblock %}
+
+{% block javascript %}
+	<script type="text/javascript" src="/media/js/shCore.js"></script>
+	<script type="text/javascript" src="/media/js/shBrushPython.js"></script>
+	<script type="text/javascript">
+		SyntaxHighlighter.all();
+	</script>
+{% endblock %}
+
+{% block content %}
+    <!-- Insert your content here -->
+    
+    {% if form %}
+    <h2>Project Management : <font color="red">{{ project }}</font> <input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')"></h2></br>
+	<form action="/project/{{ project_id }}/manage/" method="POST">
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="go!">
+		<input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')">
+	</form>
+    {% endif %}
+    {% if result %}
+		<br>
+		<hr>
+		<h2>output from command line</h2>
+	{% endif %}
+{% endblock %}

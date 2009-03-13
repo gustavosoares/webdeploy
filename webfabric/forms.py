@@ -30,11 +30,12 @@ class Project_ManageForm(forms.Form):
 			self.fields['stage'] = forms.ChoiceField(label='stage')
 		
 		if tasks_choices:
-			self.fields['tasks'] = forms.ChoiceField(label='tasks', 
-							choices=tasks_choice)
+			self.fields['task'] = forms.ChoiceField(label='task', 
+							choices=tasks_choices)
 		else:
 			self.fields['tasks'] = forms.ChoiceField(label='tasks')
-
+			
+		self.fields['project_id'] = forms.CharField(widget=forms.HiddenInput()) 
 	#stage = forms.ChoiceField()
 	#tasks = forms.ChoiceField()
 

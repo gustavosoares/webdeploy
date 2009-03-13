@@ -1,0 +1,6 @@
+
+def {{ task_name }}():
+	"{{ task_description }}"
+	config.fab_hosts = [{% for hosts in lista_hosts %} '{{ hosts }}', {% endfor %}]
+	config.fab_user = {{ fab_user }}
+	config.deploy_to = {{ deploy_to }}
