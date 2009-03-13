@@ -22,8 +22,8 @@
     {% endif %}
     
     {% if form %}
-    <h2>Fabfile Creation : <font color="red">{{ project }}</font> <input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')"></h2></br>
 	<form action="/project/{{ project_id }}/fabfile/save" method="POST">
+    <h2>Fabfile Creation : <font color="red">{{ project }}</font> <input type="submit" value="save"> <input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')"></h2></br>
 		<table>
 			{{ form.as_table }}
 		</table>

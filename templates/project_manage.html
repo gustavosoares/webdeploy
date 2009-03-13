@@ -10,6 +10,7 @@
 {% block javascript %}
 	<script type="text/javascript" src="/media/js/shCore.js"></script>
 	<script type="text/javascript" src="/media/js/shBrushPython.js"></script>
+	<script type="text/javascript" src="/media/js/shBrushBash.js"></script>
 	<script type="text/javascript">
 		SyntaxHighlighter.all();
 	</script>
@@ -28,9 +29,12 @@
 		<input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')">
 	</form>
     {% endif %}
-    {% if result %}
+    {% if output %}
 		<br>
 		<hr>
-		<h2>output from command line</h2>
-	{% endif %}
+		<h2>status code: {{ status }}</h2>
+<pre class="">
+{{ output }}
+</pre>
+    {% endif %}
 {% endblock %}

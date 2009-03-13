@@ -44,7 +44,7 @@ def checkout():
 
 	print('*' * 60)
 	cmd = """
-	cd $(checkout_dir) &&
+	cd $(checkout_dir)/$(application) &&
 	pwd &&
 	rm -rf config Capfile &&
 	cd src &&

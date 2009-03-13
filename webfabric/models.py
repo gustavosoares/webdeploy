@@ -36,6 +36,7 @@ class Project_Configuration(models.Model):
 		
 class Stage(models.Model):
 	name = models.CharField(max_length=100)
+	password = models.CharField(max_length=100) #config.fab_password
 	user = models.CharField(max_length=40) #config.fab_user
 	hosts = models.CharField(max_length=500) #config.fab_hosts
 	deploy_to = models.CharField(max_length=100) #config.deploy_to

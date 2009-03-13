@@ -1,3 +1,6 @@
+import datetime
+import os
+import commands
 # Cproject.htmlreate your views here.
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -21,6 +24,8 @@ from webfabric.models import StageTable
 from webfabric.models import Tasks
 from webfabric.models import Fabfile_Template
 from webfabric.models import Fabfile
+#MODULES
+from deploy.utils import *
 
 #create or list a project configuration
 def project_create_list(request, action='None', step=0):
@@ -101,6 +106,8 @@ def project_stage(request, project_id=0, step=0):
 		form = StageForm(request.POST)
 		if form.is_valid():
 			name_var = request.POST['name']
+			raw_password = request.POST['password']
+			password_var = ''
 			s = Stage.objects.filter(project=project_id, name=name_var)
 			p = Project.objects.filter(id=project_id)
 			project_name = p[0].name
@@ -117,6 +124,7 @@ def project_stage(request, project_id=0, step=0):
 				p = Project.objects.get(id=project_id)
 				stage = Stage(name = name_var,
 						user = user_var,
+						password = raw_password,
 						hosts = hosts_var,
 						deploy_to = deploy_to_var,
 						project = p)
@@ -280,8 +288,8 @@ def project_manage(request, project_id=0):
 		
 		form = Project_ManageForm(STAGE_LIST,TASKS_LIST,initial={'project_id' : project_id})
 		return render_to_response('project_manage.html', {'form' : form, 
-														'project_id' : project_id,
-														'project' : project.name})
+								'project_id' : project_id,
+								'project' : project.name})
 	#POST
 	elif request.method == 'POST':
 		print 'POST received for project_id %s: %s' % (project_id, request.POST)
@@ -290,6 +298,7 @@ def project_manage(request, project_id=0):
 		print 'task: %s' % task
 		print 'stage_id: %s' % stage_id
 		stage = Stage.objects.get(id=stage_id)
+		stage_name = stage.name
 		lista_hosts = []
 		for h in str(stage.hosts).split(','):
 			lista_hosts.append(str(h))
@@ -297,10 +306,11 @@ def project_manage(request, project_id=0):
 		task_description = 'stage %s' % stage.name
 		#task created acording the specified stage
 		stage_task = render_to_string('tasks/stage.fabfile', {'task_name' : stage.name,
-															'task_description' : task_description,
-															'lista_hosts' : lista_hosts,
-															'fab_user' : stage.user,
-															'deploy_to' : stage.deploy_to})
+								'task_description' : task_description,
+								'lista_hosts' : lista_hosts,
+								'fab_user' : stage.user,
+								'fab_password' : stage.password,
+								'deploy_to' : stage.deploy_to})
 		print 'stage task: '
 		print stage_task
 		print ''
@@ -317,22 +327,52 @@ def project_manage(request, project_id=0):
 		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
 		#get tasks from fabfile
 		fabfile_body = fabfile.body
-		lines = fabfile_body.splitlines()
+		lines = fabfile_body.split('\n')
 		i = 0
+		first_task_line = 0
+		#######################################
+		# write fabfile on disk to be executed
+		#######################################
+		timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+		dir_fabfile = '/tmp/webfabric_%s' % timestamp
+		#creates directory for fabfile.py
+		os.mkdir(dir_fabfile)
+		f = dir_fabfile + '/fabfile.py'
+		f_fabfile = open(f, 'w')
 		for line in lines:
-			line = line.strip()
+			f_fabfile.write(line.replace('\r','') + '\n')
 			if line.startswith('def '):
+				if first_task_line == 0:
+					first_task_line = i
 				j = line.find('(')
 				task_name = line[4:j]
 				tupla = (task_name, task_name)
 				TASKS_LIST.append(tupla)
 				#print '%d - %s' % (i,task_name)
 			i = i + 1
+		f_fabfile.write(stage_task.replace('\r','') + '\n')
+		f_fabfile.close()
+		print 'fabfile writed on %s ' % f
 		form = Project_ManageForm(STAGE_LIST,TASKS_LIST,initial={'stage' : stage_id, 'task' : task})
+		print 'first task ocurred at %d' % first_task_line
+		lines.insert(first_task_line - 1, stage_task)
+		############################
+		# executes the command
+		############################
+		os.chdir(dir_fabfile)
+		try:
+			cmdline = "fab %s %s" % (stage_name, task)
+			print 'command line: %s' % cmdline
+			status, output = commands.getstatusoutput(cmdline)
+		finally:
+			#removes the fabfile.py
+			os.remove(f)
+			os.rmdir(dir_fabfile)
 		return render_to_response('project_manage.html', {'form' : form, 
-														'project_id' : project_id,
-														'project' : project.name,
-														'result' : 1})
+								'project_id' : project_id,
+								'project' : project.name,
+								'status' : status,
+								'output' : output})
 		return HttpResponse("POST")
 	else:
 		return HttpResponse("only POST and GET are accepted")
@@ -361,3 +401,9 @@ def name_value_dict(obj):
 	for x in xrange(len(obj)):
 		p_dict[obj[x].name] = obj[x].value
 	return p_dict
+
+def set_password(raw_password):
+	return hashlib.md5(raw_password).hexdigest()
+
+def get_password(password):
+	pass

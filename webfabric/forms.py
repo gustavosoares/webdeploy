@@ -62,6 +62,7 @@ class Project_ConfigurationForm(forms.Form):
 class StageForm(forms.Form):
 	name = forms.CharField(label="name")
 	user = forms.CharField(label="config.fab_user", widget=forms.TextInput(attrs={'size':'60'}))
+	password = forms.CharField(label="config.fab_password", widget=forms.PasswordInput(attrs={'size':'60'}))
 	hosts = forms.CharField(label="config.fab_hosts", widget=forms.TextInput(attrs={'size':'60'}))
 	deploy_to = forms.CharField(label="config.deploy_to", widget=forms.TextInput(attrs={'size':'60'}))
 
