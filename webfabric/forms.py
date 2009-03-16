@@ -35,10 +35,23 @@ class Project_ManageForm(forms.Form):
 		else:
 			self.fields['tasks'] = forms.ChoiceField(label='tasks')
 			
-		self.fields['project_id'] = forms.CharField(widget=forms.HiddenInput()) 
-	#stage = forms.ChoiceField()
-	#tasks = forms.ChoiceField()
+		self.fields['project_id'] = forms.CharField(widget=forms.HiddenInput())
 
+class Project_ListForm(forms.Form):
+
+	def __init__(self, project_choices=None, *args, **kwargs):
+		super(Project_ManageForm, self).__init__(*args, **kwargs)
+		if stage_choices:
+			#stage = forms.ChoiceField(choices=stage_choice)
+			self.fields['project'] = forms.ChoiceField(label='choose a project', 
+							choices=project_choices)
+		else:	
+			self.fields['project'] = forms.ChoiceField(label='choose a project')
+
+		self.fields['actions'] = forms.ChoiceField(label='action', 
+						choices=[('create', 'create'), ('manage','manage')])
+
+		self.fields['project_id'] = forms.CharField(widget=forms.HiddenInput())
 
 class Project_ConfigurationForm(forms.Form):
 	def __init__(self, project, *args, **kwargs):

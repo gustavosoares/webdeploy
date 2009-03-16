@@ -24,8 +24,6 @@ from webfabric.models import StageTable
 from webfabric.models import Tasks
 from webfabric.models import Fabfile_Template
 from webfabric.models import Fabfile
-#MODULES
-from deploy.utils import *
 
 #create or list a project configuration
 def project_create_list(request, action='None', step=0):
@@ -256,6 +254,15 @@ def project_fabfile_view(request, project_id=0):
 		return render_to_response('fabfile.html', {'fabfile' : fabfile.body})
 	else:
 		return HttpResponse("not a GET")
+
+def project_list(request):
+	pass
+	#GET
+	if request.method == 'GET':
+		pass
+	#POST
+	elif request.method == 'POST':
+		pass
 
 #view the fabfile with syntax highlight
 def project_manage(request, project_id=0):

@@ -27,7 +27,11 @@
 		</table>
 		<input type="submit" value="go!">
 		<input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')">
+		<input type="button" value="go Ajax!" onclick="new Ajax.Updater('divOutput',
+		'/project/{{ project_id }}/manage/', {asynchronous:true, parameters:'stage='+
+		document.getElementById ('id_stage').value}); return false;">
 	</form>
+	<div id="divOutput"></div>
     {% endif %}
     {% if output %}
 		<br>
