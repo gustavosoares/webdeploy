@@ -191,7 +191,6 @@ def project_fabfile(request, project_id=0, step=0):
 				fabfile = Fabfile.objects.filter(project=project_id)
 				#check if there is any fabfifle for the project
 				if fabfile:
-					#return HttpResponse("<h1>TODO: generate form form fabfile</h1>")
 					name = fabfile[0].name
 					body = fabfile[0].body
 					form = FabfileForm(initial={'name' : name, 'fabfile' : body, 'project_id' : project_id})
@@ -231,7 +230,11 @@ def project_fabfile(request, project_id=0, step=0):
 						#saves template data in database
 						new_fabfile = Fabfile(name=name, body=body, project=project)
 						new_fabfile.save()
-					return HttpResponseRedirect(request.META['HTTP_REFERER'])
+					#return HttpResponseRedirect(request.META['HTTP_REFERER'])
+					form = FabfileForm(initial={'name' : name, 'fabfile' : body, 'project_id' : project_id})
+					return render_to_response('fabfile.html', {'form' : form, 
+								'project_id' : project_id,
+								'project' : project.name})
 			else:
 				return HttpResponse("<h1>Project does not exists!</h1>")
 		else:
