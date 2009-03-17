@@ -81,19 +81,15 @@ def deploy():
 	local('rm -rf %s' % config.filename)
 	print('done')
 	cmd = """
-	mkdir -p $(release_path) &&
-	cd $(release_path) &&
-	tar xvzf $(filename) &&
-	for dir in `ls`; do rm -rf $(deploy_to)/$dir > /dev/null; done &&
-	cd $(deploy_to) && 
-	tar xvzf $(filename) && 
-	rm $(filename) && 
-	cd $(release_path) && 
-	cp -rp * $(current_path)/ && 
-	rm -rf $(filename) &&
-	cd $(deploy_to)/ &&
-	rm -rf pubclient > /dev/null &&
-	ln -s delivery/pubclient
+        mkdir -p $(release_path) &&
+        cd $(release_path) &&
+        tar xvzf $(filename) &&
+        for dir in `ls`; do rm -rf $(deploy_to)/$dir > /dev/null; done &&
+        cp -rp * $(deploy_to) &&
+        rm $(filename) && 
+        cd $(deploy_to)/ &&
+        rm -rf pubclient > /dev/null &&
+        ln -s delivery/pubclient
 	"""
 	run(cmd)
 	invoke(restart)
