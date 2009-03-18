@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}WebFabric - Fabric Output{% endblock %}
+
+{% block content %}
+{% if output %}
+	<br>
+	<hr>
+	<h2>status code: {{ status }}</h2>
+<pre class="brush: bash">
+{{ output }}
+</pre>
+{% endif %}
+{% endblock %}

@@ -19,7 +19,19 @@
 
 	{% block stylesheet %}{% endblock %}
 	{% block javascript %}{% endblock %}
+	<script>
+		Ajax.Responders.register({ 
+			onCreate : displayLoading, 
+			onComplete : hideLoading
+		});
+		function displayLoading(){
+			Element.show("loading");
+		}
 
+		function hideLoading (){
+			Element.hide("loading");
+		}
+	</script>
     <!--link href="/media/css/application.css" media="screen" rel="stylesheet" type="text/css" /-->
 </head>
 <body>

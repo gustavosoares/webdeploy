@@ -322,17 +322,11 @@ def project_manage(request, project_id=0):
 		print stage_task
 		print ''
 		##################################
-		# render the form the way it was
+		# initiate 
 		#################################
 		project = Project.objects.get(id=project_id)
 		fabfile = Fabfile.objects.get(project=project_id)
 		stage = Stage.objects.filter(project=project_id).values_list()
-		STAGE_LIST = []
-		TASKS_LIST = []
-		for x in xrange(len(stage)):
-			STAGE_LIST.append(stage[x][0:2])
-		print 'stages for project_id %s: %s' % (project_id, STAGE_LIST)
-		#get tasks from fabfile
 		fabfile_body = fabfile.body
 		lines = fabfile_body.split('\n')
 		i = 0
@@ -353,14 +347,11 @@ def project_manage(request, project_id=0):
 					first_task_line = i
 				j = line.find('(')
 				task_name = line[4:j]
-				tupla = (task_name, task_name)
-				TASKS_LIST.append(tupla)
 				#print '%d - %s' % (i,task_name)
 			i = i + 1
 		f_fabfile.write(stage_task.replace('\r','') + '\n')
 		f_fabfile.close()
 		print 'fabfile writed on %s ' % f
-		form = Project_ManageForm(STAGE_LIST,TASKS_LIST,initial={'stage' : stage_id, 'task' : task})
 		print 'first task ocurred at %d' % first_task_line
 		lines.insert(first_task_line - 1, stage_task)
 		############################
@@ -375,10 +366,7 @@ def project_manage(request, project_id=0):
 			#removes the fabfile.py
 			os.remove(f)
 			os.rmdir(dir_fabfile)
-		return render_to_response('project_manage.html', {'form' : form, 
-								'project_id' : project_id,
-								'project' : project.name,
-								'status' : status,
+		return render_to_response('fabric_output.html', {'status' : status,
 								'output' : output})
 		return HttpResponse("POST")
 	else:

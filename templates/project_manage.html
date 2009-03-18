@@ -20,25 +20,18 @@
     <!-- Insert your content here -->
     
     {% if form %}
-    <h2>Project Management : <font color="red">{{ project }}</font> <input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')"></h2></br>
+    <h2>Project Management : <font color="red">{{ project }}</font></h2></br>
 	<form action="/project/{{ project_id }}/manage/" method="POST">
 		<table>
 			{{ form.as_table }}
 		</table>
-		<input type="submit" value="go!">
-		<input type="button" value="view fabfile" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')">
-		<input type="button" value="go Ajax!" onclick="new Ajax.Updater('divOutput',
-		'/project/{{ project_id }}/manage/', {asynchronous:true, parameters:'stage='+
-		document.getElementById ('id_stage').value+'&task='+document.getElementById ('id_task').value}); return false;">
+		<input type="button" value="go" onclick="new Ajax.Updater('divOutput',
+		'/project/{{ project_id }}/manage/', {asynchronous:true, parameters:{'stage' :
+		$('id_stage').value, 'task' : $('id_task').value}}); return false;">
+		<input type="button" value="view fabfile.py" onClick="window.open('/project/{{ project_id }}/fabfile/view','fabfile')">
+		<div id="loading" style="display:none"><img src="/media/images/spinner.gif"/></div>
 	</form>
 	<div id="divOutput"></div>
-    {% endif %}
-    {% if output %}
-		<br>
-		<hr>
-		<h2>status code: {{ status }}</h2>
-<pre class="brush: bash">
-{{ output }}
-</pre>
+
     {% endif %}
 {% endblock %}
