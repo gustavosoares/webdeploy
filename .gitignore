@@ -17,4 +17,5 @@ target/*
 *.swp
 *.pyc
 .pydevproject
+.orig
 

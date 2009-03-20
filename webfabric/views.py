@@ -25,10 +25,9 @@ from webfabric.models import Tasks
 from webfabric.models import Fabfile_Template
 from webfabric.models import Fabfile
 
-#create or list a project configuration
-def project_create_list(request, action='None', step=0):
+#list projects or get configuration for project_id
+def project(request, project_id=0):
 
-#	if action == 'create':
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
 		if form.is_valid():
@@ -46,21 +45,16 @@ def project_create_list(request, action='None', step=0):
 				creation_time=creation_time, template=template)
 				p.save()
 				print 'POST project create'
-				return HttpResponseRedirect('/project/create/%s' % p._get_pk_val())
+				return HttpResponseRedirect('/project/%s' % p._get_pk_val())
 
 		else:
-			raise forms.ValidationError("form is invalid!!!") 
+			raise forms.ValidationError("form is invalid!!!")
+	#GET
 	else:
-		if step > 0: #list projects configurations
-			project = Project.objects.get(id=step)
-			form = ProjectForm(initial={'name' : project.name,
-				'description' : project.description,
-				'creation_date' : project.creation_date,
-				'creation_time' : project.creation_time,
-				'template' : project.template_id
-				})
+		if project_id > 0: #list projects configurations
+			project = Project.objects.get(id=project_id)
 			#project configuration exists?
-			p_configuration = Project_Configuration.objects.filter(project=step).values_list()
+			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 			if not p_configuration:
 				template_configuration = Template_Configuration.objects.filter(template=project.template_id).values_list()
 				for t in template_configuration:
@@ -69,22 +63,52 @@ def project_create_list(request, action='None', step=0):
 					value = tupla[2]
 					p = Project_Configuration(name = name,
 								value = value,
-								project_id = step
+								project_id = project_id
 								)
 					p.save()
-				p_configuration = Project_Configuration.objects.filter(project=step).values_list()
+				p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 			
 			form_configuration = Project_ConfigurationForm(p_configuration)
-			return render_to_response('project.html', {'form' : form,
-						'project_id' : step, 
+			return render_to_response('project.html', {'project' : project.name,
+						'project_id' : project_id, 
 						'form_configuration' : form_configuration})
-		else:
-			form = ProjectForm()
-			
-		return render_to_response('project.html', {'form' : form})
+
+
+#create or list a project configuration
+def project_create(request, project_id=0):
+
+	if project_id > 0: #list projects configurations
+		project = Project.objects.get(id=project_id)
+		form = ProjectForm(initial={'name' : project.name,
+			'description' : project.description,
+			'creation_date' : project.creation_date,
+			'creation_time' : project.creation_time,
+			'template' : project.template_id
+			})
+		#project configuration exists?
+		p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
+		if not p_configuration:
+			template_configuration = Template_Configuration.objects.filter(template=project.template_id).values_list()
+			for t in template_configuration:
+				tupla = t
+				name = tupla[1]
+				value = tupla[2]
+				p = Project_Configuration(name = name,
+							value = value,
+							project_id = project_id
+							)
+				p.save()
+			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 		
-#	else:
-#		return render_to_response('project.html', {'action' : 'desconhecida'})
+		form_configuration = Project_ConfigurationForm(p_configuration)
+		return render_to_response('project.html', {'form' : form,
+					'project_id' : project_id, 
+					'form_configuration' : form_configuration})
+	else:
+		form = ProjectForm()
+		
+	return render_to_response('project.html', {'form' : form})
+
 
 #saves a project configuration
 def project_save(request):
@@ -98,7 +122,7 @@ def project_save(request):
 		return HttpResponse("configuration not commited")
 		
 #manage project stages
-def project_stage(request, project_id=0, step=0):
+def project_stage(request, project_id=0):
 	#POST
 	if request.method == 'POST':
 		form = StageForm(request.POST)
@@ -143,40 +167,37 @@ def project_stage(request, project_id=0, step=0):
 			return HttpResponse("form is not valid")
 	#GET
 	else:
-		if step > 0:
-			project = Project.objects.filter(project=project_id).values_list()
+		stage = Stage.objects.filter(project=project_id)
+		if stage:
+			#return HttpResponse("list stages")
+			stage_table = StageTable(stage)
+			user = stage[0].user
+			deploy_to = stage[0].deploy_to
+			form = StageForm(initial={'user' : user, 'deploy_to' : deploy_to})
+			p = Project.objects.filter(id=project_id)
+			project_name = p[0].name
+			return render_to_response('stage.html', {'form' : form, 
+						'project' : project_name,
+						'project_id' : project_id,
+						'stage_table' : stage_table})
 		else:
-			stage = Stage.objects.filter(project=project_id)
-			if stage:
-				#return HttpResponse("list stages")
-				stage_table = StageTable(stage)
-				user = stage[0].user
-				deploy_to = stage[0].deploy_to
+			p = Project.objects.filter(id=project_id)
+			if p:
+				p_configuration = Project_Configuration.objects.filter(project=project_id)
+				p_dict = name_value_dict(p_configuration)
+				user = p_dict['config.fab_user']
+				deploy_to = p_dict['config.deploy_to']
 				form = StageForm(initial={'user' : user, 'deploy_to' : deploy_to})
-				p = Project.objects.filter(id=project_id)
 				project_name = p[0].name
 				return render_to_response('stage.html', {'form' : form, 
 							'project' : project_name,
-							'project_id' : project_id,
-							'stage_table' : stage_table})
+							'project_id' : project_id})
 			else:
-				p = Project.objects.filter(id=project_id)
-				if p:
-					p_configuration = Project_Configuration.objects.filter(project=project_id)
-					p_dict = name_value_dict(p_configuration)
-					user = p_dict['config.fab_user']
-					deploy_to = p_dict['config.deploy_to']
-					form = StageForm(initial={'user' : user, 'deploy_to' : deploy_to})
-					project_name = p[0].name
-					return render_to_response('stage.html', {'form' : form, 
-								'project' : project_name,
-								'project_id' : project_id})
-				else:
-					return HttpResponse('<h2>Project does not exists</h2>')
+				return HttpResponse('<h2>Project does not exists</h2>')
 
 			
 #manage project tasks
-def project_fabfile(request, project_id=0, step=0):
+def project_fabfile(request, project_id=0):
 	#POST
 	if request.method == 'POST':
 		pass

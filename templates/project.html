@@ -11,7 +11,7 @@
     
     {% if form %}
     <h2>Project Creation</h2></br>
-	<form action="/project/create/" method="POST">
+	<form action="/project/" method="POST">
 		<table>
 			{{ form.as_table }}
 		</table>
@@ -20,14 +20,16 @@
     {% endif %}
     {% if form_configuration %}
         </hr>
-        <h2>Project Configuration</h2></br>
+        <h2>Project Configuration : <font color="red">{{ project }}</font></h2></br>
 	<form action="/project/save/" method="POST">
 		<table>
 			{{ form_configuration.as_table }}
 		</table>
 		<input type="submit" value="save">
-		<a href="/project/{{ project_id }}/stage" class="addlink">Add Stage</a>
+		<input type="button" value="Add Stage" onclick="new Ajax.Updater('divStage',
+		'/project/{{ project_id }}/stage', {asynchronous:true, method : 'get', parameters:{}}); return false;"> <div id="loading" style="display:none"><img src="/media/images/spinner.gif"/></div>
 	</form>
+	<div id="divStage"></div>
     {% endif %}
 
 {% endblock %}
