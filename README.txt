@@ -27,3 +27,7 @@ GET /project/PROJECT_ID/fabfile/view - view fancy fabfile with syntax highlight 
 To generate initial data and create de tables on the database run the following command:
 
 python manage.py syncdb
+
+TODO:
+
+- substituir os prints pelo modulo de logging

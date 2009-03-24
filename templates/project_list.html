@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}WebFabric - Project List{% endblock %}
+
+
+{% block content %}
+
+<div class="all">
+
+   {% for project in projects %}
+	<div class="project">
+	   <div class="project_title">
+	    	{{ project.name }}
+	   </div>
+	   <div class="project_values">
+		<ul>
+			<li>{{ project.description }}</li>
+			<li>{{ project.creation_date }}</li>
+			<li>{{ project.creation_time }}</li>
+		</ul>
+	   </div>
+	<hr/>
+	</div>
+   {% endfor %}
+
+</div>
+{% endblock %}

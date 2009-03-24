@@ -15,13 +15,13 @@
 		<table>
 			{{ form.as_table }}
 		</table>
-		<p><input type="submit" value="Submit"></p>
+		<p><input type="submit" value="save"></p>
 	</form>
     {% endif %}
     {% if form_configuration %}
         </hr>
         <h2>Project Configuration : <font color="red">{{ project }}</font></h2></br>
-	<form action="/project/save/" method="POST">
+	<form action="/project/configuration/save/" method="POST">
 		<table>
 			{{ form_configuration.as_table }}
 		</table>

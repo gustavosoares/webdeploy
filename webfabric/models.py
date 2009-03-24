@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.db import models
 import django_tables as tables 
 
@@ -33,7 +34,7 @@ class Project_Configuration(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.name)
-		
+
 class Stage(models.Model):
 	name = models.CharField(max_length=100)
 	password = models.CharField(max_length=100) #config.fab_password

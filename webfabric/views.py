@@ -1,3 +1,4 @@
+# coding=utf-8
 import datetime
 import os
 import commands
@@ -26,33 +27,43 @@ from webfabric.models import Fabfile_Template
 from webfabric.models import Fabfile
 
 #list projects or get configuration for project_id
+def project_save(request, project_id):
+	
+	form = ProjectForm(request.POST)
+	if form.is_valid():
+		form_dict = read_form(form)
+		name = form_dict['name']
+		if Project.objects.filter(name=name).distinct():
+			return render_to_response('project.html', {'form' : form, 'error' : name})
+		else: 
+			description = form_dict['description']
+			creation_date = form_dict['creation_date']
+			creation_time = form_dict['creation_time']
+			template_id = form_dict['template']
+			template = Template.objects.get(id=template_id)
+			p = Project(name=name, description=description, creation_date=creation_date,
+			creation_time=creation_time, template=template)
+			p.save()
+			print 'new project created'
+			return HttpResponseRedirect('/project/%s' % p._get_pk_val())
+
+	else:
+		raise forms.ValidationError("form is invalid!!!")
+
 def project(request, project_id=0):
-
+	#POST
 	if request.method == 'POST':
-		form = ProjectForm(request.POST)
-		if form.is_valid():
-			form_dict = read_form(form)
-			name = form_dict['name']
-			if Project.objects.filter(name=name).distinct():
-				return render_to_response('project.html', {'form' : form, 'error' : name})
-			else: 
-				description = form_dict['description']
-				creation_date = form_dict['creation_date']
-				creation_time = form_dict['creation_time']
-				template_id = form_dict['template']
-				template = Template.objects.get(id=template_id)
-				p = Project(name=name, description=description, creation_date=creation_date,
-				creation_time=creation_time, template=template)
-				p.save()
-				print 'POST project create'
-				return HttpResponseRedirect('/project/%s' % p._get_pk_val())
-
-		else:
-			raise forms.ValidationError("form is invalid!!!")
+		return project_save(request, project_id)
 	#GET
 	else:
 		if project_id > 0: #list projects configurations
 			project = Project.objects.get(id=project_id)
+			form = ProjectForm(initial={'name' : project.name,
+				'description' : project.description,
+				'creation_date' : project.creation_date,
+				'creation_time' : project.creation_time,
+				'template' : project.template_id
+				})
 			#project configuration exists?
 			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 			if not p_configuration:
@@ -69,41 +80,21 @@ def project(request, project_id=0):
 				p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
 			
 			form_configuration = Project_ConfigurationForm(p_configuration)
-			return render_to_response('project.html', {'project' : project.name,
-						'project_id' : project_id, 
+			return render_to_response('project.html', {'form' : form,
+						'project_id' : project_id,
+						'project' : project.name,
 						'form_configuration' : form_configuration})
+		else:
+			projects = Project.objects.all()
+			print 'Lista de projetos: %s ' % projects
+			return render_to_response('project_list.html', { 'projects' : projects })
 
 
 #create or list a project configuration
 def project_create(request, project_id=0):
 
 	if project_id > 0: #list projects configurations
-		project = Project.objects.get(id=project_id)
-		form = ProjectForm(initial={'name' : project.name,
-			'description' : project.description,
-			'creation_date' : project.creation_date,
-			'creation_time' : project.creation_time,
-			'template' : project.template_id
-			})
-		#project configuration exists?
-		p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
-		if not p_configuration:
-			template_configuration = Template_Configuration.objects.filter(template=project.template_id).values_list()
-			for t in template_configuration:
-				tupla = t
-				name = tupla[1]
-				value = tupla[2]
-				p = Project_Configuration(name = name,
-							value = value,
-							project_id = project_id
-							)
-				p.save()
-			p_configuration = Project_Configuration.objects.filter(project=project_id).values_list()
-		
-		form_configuration = Project_ConfigurationForm(p_configuration)
-		return render_to_response('project.html', {'form' : form,
-					'project_id' : project_id, 
-					'form_configuration' : form_configuration})
+		return project(request, project_id)
 	else:
 		form = ProjectForm()
 		
@@ -111,7 +102,7 @@ def project_create(request, project_id=0):
 
 
 #saves a project configuration
-def project_save(request):
+def project_configuration_save(request):
 	if request.method == 'POST':
 		for ids in request.POST.keys():
 			project_configuration = Project_Configuration.objects.get(id=ids)
