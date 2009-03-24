@@ -10,13 +10,14 @@
    {% for project in projects %}
 	<div class="project">
 	   <div class="project_title">
-	    	{{ project.name }}
+	    	<a href="/project/{{ project.id }}">{{ project.name }}</a>&nbsp;&nbsp;&nbsp;<a href="/project/{{ project.id }}/manage/" class="addlink">manage</a>
 	   </div>
 	   <div class="project_values">
 		<ul>
-			<li>{{ project.description }}</li>
-			<li>{{ project.creation_date }}</li>
-			<li>{{ project.creation_time }}</li>
+			<li><b>id:</b> {{ project.id }}</li>
+			<li><b>description: </b>{{ project.description }}</li>
+			<li><b>creation date: </b>{{ project.creation_date }}</li>
+			<li><b>creation time: </b>{{ project.creation_time }}</li>
 		</ul>
 	   </div>
 	<hr/>
