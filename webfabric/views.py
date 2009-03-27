@@ -25,6 +25,7 @@ from webfabric.models import StageTable
 from webfabric.models import Tasks
 from webfabric.models import Fabfile_Template
 from webfabric.models import Fabfile
+from utils import Password
 
 #list projects or get configuration for project_id
 def project_save(request, project_id):
@@ -111,51 +112,60 @@ def project_configuration_save(request):
 		return HttpResponseRedirect(request.META['HTTP_REFERER'])
 	else:
 		return HttpResponse("configuration not commited")
-		
+
+#saves a project stage configuration
+def project_stage_save(request, project_id):
+	form = StageForm(request.POST)
+	if form.is_valid():
+		name_var = request.POST['name']
+		raw_password = unicode(request.POST['password'])
+		password_var = raw_password
+		print 'raw_password: %s' % raw_password
+		password_object = Password()
+
+		password_var = password_object.encrypt(raw_password)
+		print 'enc_password: %s' % raw_password
+		s = Stage.objects.filter(project=project_id, name=name_var)
+		p = Project.objects.filter(id=project_id)
+		project_name = p[0].name
+		if s:
+			form = StageForm(project_id)
+			return render_to_response('stage.html', {'form' : form, 
+						'error' : name_var, 
+						'project' : project_name, 
+						'project_id' : project_id})
+		else:
+			user_var = request.POST['user']
+			hosts_var = request.POST['hosts']
+			deploy_to_var = request.POST['deploy_to']
+			p = Project.objects.get(id=project_id)
+			stage = Stage(name = name_var,
+					user = user_var,
+					password = password_var,
+					hosts = hosts_var,
+					deploy_to = deploy_to_var,
+					project = p)
+			stage.save()
+			stage = Stage.objects.filter(project=project_id)
+			stage_table = StageTable(stage)
+			form = StageForm(None,initial={'name' : name_var,
+							'user' : user_var,
+							'hosts' : hosts_var,
+							'deploy_to' : deploy_to_var})
+			return render_to_response('stage.html', {'form' : form, 
+						'project_name' : project_name,
+						'stage' : name_var, 
+						'project' : project_name, 
+						'project_id' : project_id,
+						'stage_table' : stage_table})
+	else:
+		return HttpResponse("form is not valid")	
+
 #manage project stages
 def project_stage(request, project_id=0):
 	#POST
 	if request.method == 'POST':
-		form = StageForm(request.POST)
-		if form.is_valid():
-			name_var = request.POST['name']
-			raw_password = request.POST['password']
-			password_var = ''
-			s = Stage.objects.filter(project=project_id, name=name_var)
-			p = Project.objects.filter(id=project_id)
-			project_name = p[0].name
-			if s:
-				form = StageForm(project_id)
-				return render_to_response('stage.html', {'form' : form, 
-							'error' : name_var, 
-							'project' : project_name, 
-							'project_id' : project_id})
-			else:
-				user_var = request.POST['user']
-				hosts_var = request.POST['hosts']
-				deploy_to_var = request.POST['deploy_to']
-				p = Project.objects.get(id=project_id)
-				stage = Stage(name = name_var,
-						user = user_var,
-						password = raw_password,
-						hosts = hosts_var,
-						deploy_to = deploy_to_var,
-						project = p)
-				stage.save()
-				stage = Stage.objects.filter(project=project_id)
-				stage_table = StageTable(stage)
-				form = StageForm(None,initial={'name' : name_var,
-								'user' : user_var,
-								'hosts' : hosts_var,
-								'deploy_to' : deploy_to_var})
-				return render_to_response('stage.html', {'form' : form, 
-							'project_name' : project_name,
-							'stage' : name_var, 
-							'project' : project_name, 
-							'project_id' : project_id,
-							'stage_table' : stage_table})
-		else:
-			return HttpResponse("form is not valid")
+		return project_stage_save(request, project_id)
 	#GET
 	else:
 		stage = Stage.objects.filter(project=project_id)

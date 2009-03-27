@@ -20,7 +20,8 @@ class Password():
         arc4 = ARC4.new(salt + Password.SECRET_KEY)
         plaintext = arc4.decrypt(ciphertext)
         return plaintext[3:3+int(plaintext[:3].strip())]
- 
+
+'''
 p = Password()
 plain = 'teste'
 print 'plain: %s' % plain
@@ -30,3 +31,4 @@ print 'enc: %s ' % enc
 
 dec = p.decrypt(enc)
 print 'dec: %s' % dec
+'''
