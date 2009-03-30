@@ -87,9 +87,11 @@ def project(request, project_id=0):
 						'form_configuration' : form_configuration})
 		else:
 			projects = Project.objects.all()
-			print 'Lista de projetos: %s ' % projects
-			return render_to_response('project_list.html', { 'projects' : projects })
-
+			if projects:
+				print 'Lista de projetos: %s ' % projects
+				return render_to_response('project_list.html', { 'projects' : projects })
+			else:
+				return HttpResponseRedirect('/project/create/')
 
 #create or list a project configuration
 def project_create(request, project_id=0):
@@ -118,13 +120,13 @@ def project_stage_save(request, project_id):
 	form = StageForm(request.POST)
 	if form.is_valid():
 		name_var = request.POST['name']
-		raw_password = unicode(request.POST['password'])
+		raw_password = request.POST['password']
+		print type(raw_password)
 		password_var = raw_password
 		print 'raw_password: %s' % raw_password
-		password_object = Password()
+		password_var = Password.encrypt(str(raw_password))
+		print 'enc_password (%d): %s' % (len(password_var), password_var)
 
-		password_var = password_object.encrypt(raw_password)
-		print 'enc_password: %s' % raw_password
 		s = Stage.objects.filter(project=project_id, name=name_var)
 		p = Project.objects.filter(id=project_id)
 		project_name = p[0].name
